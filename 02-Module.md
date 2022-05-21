@@ -1,17 +1,22 @@
 # Getting Started with Cloud Shell and gcloud
 
+## Overview 
+Cloud Shell provides you with command-line access to computing resources hosted on Google Cloud. Cloud Shell is a Debian-based virtual machine with a persistent 5-GB home directory, which makes it easy for you to manage your Google Cloud projects and resources. The gcloud command-line tool and other utilities you need are pre-installed in Cloud Shell, which allows you to get up and running quickly.
+
+## Setup
+1. Active Cloud Shell
 gcloud is the command-line tool for Google Cloud. It comes pre-installed on Cloud Shell and supports tab-completion.
 
-1. List active account name 
-```bash
-gcloud auth list
-```
+    1. List active account name 
+    ```bash
+    gcloud auth list
+    ```
 
-2. List project ID
-```bash
-gcloud config list project
-```
-
+    2. List project ID
+    ```bash
+    gcloud config list project
+    ```
+----
 ## Task 1: Configure your environment
 
 1. See default region and zone setting
@@ -78,8 +83,8 @@ gcloud compute project-info describe --project <your_project_ID>
     ```bash
     gcloud components list
     ```
------
-### Task 2: Install a new component
+----
+## Task 2: Install a new component
 
 gcloud interactive has auto prompting for commands and flags and displays inline help snippets in the lower section of the pane as the command is typed
 
@@ -98,8 +103,8 @@ gcloud beta interactive
 ```bash
 exit
 ```
------
-### Task 3: Connect to your VM instancce with SSH
+----
+## Task 3: Connect to your VM instancce with SSH
 
 `gcloud compute` makes connecting to your instances easy. The `gcloud compute ssh` command provides a wrapper around SSH, which takes care of authentication and the mapping of instance names to IP addresses.
 
@@ -109,8 +114,8 @@ gcloud compute ssh gcelab2 --zone $ZONE
 ```
 2. To continue, type `Y`.
 3. To leave the passphrase empty, press <kbd>ENTER</kbd> twice.
------
-### Task 4: Use the Home directory
+----
+## Task 4: Use the Home directory
 1. Change your current working directory
 ```bash
 cd $HOME
@@ -120,8 +125,8 @@ cd $HOME
 vi ./.bashrc
 ```
 > To exit editor, press <kbd>ESC</kbd>, then type `:wq`, and then press <kbd>ENTER</kbd>
------
-### Test your understanding
+----
+## Test your understanding
 1. Three basic ways to interact with Google Cloud services and resources are:
 - [ ] GStreamer
 - [x] Cloud Console
