@@ -1,1 +1,1 @@
-# Google-Cloud-Fundamentals
+# Google-Cloud-Computing-Foundations
