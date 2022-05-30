@@ -1,7 +1,8 @@
-# Google Cloud Computing Foundations: Cloud Computing Fundamentals
-## Quiz: Use Google Cloud to Build Your Apps
+#### Google Cloud Computing Foundations | C01 Cloud Computing Fundamentals
+#### M03: Use Google Cloud to Build Your Apps
 
-- - - -
+# Quiz: Use Google Cloud to Build Your Apps
+
 1. Which of the following is considered to be serverless?
 - [ ] Compute Engine
 - [x] Cloud Functions

@@ -1,7 +1,8 @@
-# Google Cloud Computing Foundations: Cloud Computing Fundamentals
+#### Google Cloud Computing Foundations | C01 Cloud Computing Fundamentals
+#### M01: So What's The Cloud Anyway
+
 # Quiz: So What's The Cloud Anyway
 
-- - - -
 1. Select the PaaS resource from available options.
 - [x] App Engine
 - [ ] Compute Engine

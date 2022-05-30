@@ -1,8 +1,9 @@
-# Google Cloud Computing Foundations: Infrastructure in Google Cloud
-## Quiz: Where Do I Store This Stuff?
+#### Google Cloud Computing Foundations | C02 Infrastructure in Google Cloud
+#### M04: Where Do I Store This Stuff?
 
-- - - -
+# Lab 04-01: xxx
 
+## Overview 
 1. 
 - [ ] 
 - [ ] 
@@ -24,5 +25,8 @@
 - [ ] 
 > 
 
+# Lab 04-02: xxx
+
+## Overview 
 
 

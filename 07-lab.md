@@ -1,7 +1,9 @@
 #### Google Cloud Computing Foundations | C03 Networking and Security in Google Cloud
-#### M08: Let Google Keep An Eye on Things
+#### M07: It Helps to Network
 
-# Quiz: Let Google Keep An Eye on Things
+# Lab 07-01: xx
+
+## Overview 
 
 1. 
 - [ ] 
@@ -24,5 +26,14 @@
 - [ ] 
 > 
 
+# Lab 07-02: xx
 
+## Overview 
 
+# Lab 07-03: xx
+
+## Overview 
+
+# Lab 07-04: xx
+
+## Overview 

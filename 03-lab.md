@@ -1,8 +1,7 @@
-# Google Cloud Computing Foundations: Cloud Computing Fundamentals
-## Lab: Use Google Cloud to Build Your Apps
+#### Google Cloud Computing Foundations | C01 Cloud Computing Fundamentals
+#### M03: Use Google Cloud to Build Your Apps 
 
-- - - -
-# Create a Virtual Machine
+# Lab 03-01: Create a Virtual Machine
 
 ## Overview 
 Compute Engine (IaaS) lets you create virtual machines that run different operating systems, including multiple flavors of Linux (Debian, Ubuntu, Suse, Red Hat, CoreOS) and Windows Server, on Google infrastructure. You can run thousands of virtual CPUs on a system that is designed to be fast and to offer strong consistency of performance.
@@ -87,8 +86,9 @@ exit
 1. Through which of the following ways can you create a VM instance in Compute Engine?
 - [x] The gcloud command line tool
 - [x] The Cloud Console
+
 ----
-# App EngineL Qwik Start - Python
+# Lab 03-02:  App EngineL Qwik Start - Python
 
 ## Overview
 App Engine (PaaS) allows developers to focus on doing what they do best, writing code. The App Engine standard environment is based on container instances running on Google's infrastructure. Containers are preconfigured with one of several available runtimes (Java 7, Java 8, Python 2.7, Go and PHP). Each runtime also includes libraries that support App Engine Standard APIs. For many applications, the standard environment runtimes and libraries might be all you need.
@@ -185,7 +185,7 @@ https://qwiklabs-gcp-233dca09c0ab577b.appspot.com
 - [x] All of them
 
 ----
-# Cloud Functions - Qwikstart - Command Line
+# Lab 03-03: Cloud Functions - Qwikstart - Command Line
 
 ## Overview
 Cloud Functions (SaaS) is a serverless execution environment for building and connecting cloud services. With Cloud Functions you write simple, single-purpose functions that are attached to events emitted from your cloud infrastructure and services. Your Cloud Function is triggered when an event being watched is fired. Your code executes in a fully managed environment. There is no need to provision any infrastructure or worry about managing any servers.
@@ -312,7 +312,7 @@ gcloud functions logs read helloWorld
 - [ ] False
 
 ----
-# Kubernetes Engine: Qwik Start
+# Lab 03-04: Kubernetes Engine: Qwik Start
 
 ## Overview
 Google Kubernetes Engine (GKE) provides a managed environment for deploying, managing, and scaling your containerized applications using Google infrastructure. The Kubernetes Engine environment consists of multiple machines (specifically Compute Engine instances) grouped to form a container cluster.
@@ -397,89 +397,8 @@ gcloud container clusters delete [CLUSTER-NAME]
 > Note: Deleting the cluster can take a few minutes. For more information on deleted GKE clusters, view the documentation.
 
 ----
-# Set up Network and HTTP Load Balancers
 
-## Overview
-In this hands-on lab you'll learn the differences between a network load balancer and an HTTP load balancer and how to set them up for your applications running on Compute Engine virtual machines (VMs).
-
-There are several ways you can load balance on Google Cloud. This lab takes you through the set up of the following load balancers:
-
-* Network Load Balancer
-* HTTP(s) Load Balancer
-
-----
-## Task 1: Set the default region and zone for all resources
-1. In Cloud Shell, set the default zone:
-```bash
-gcloud config set compute/zone us-central1-a
-```
-2. Set the default region
-```bash
-gcloud config set compute/region us-central1
-```
-## Task 2: Create multiple web server instances
-For this load balancing scenario, create three Compute Engine VM instances and install Apache on them, then add a firewall rule that allows HTTP traffic to reach the instances.
-
-1. Create three new virtual machines in your default zone and give them all the same tag. The code provided sets the zone to us-central1-a. Setting the tags field lets you reference these instances all at once, such as with a firewall rule. These commands also install Apache on each instance and give each instance a unique home page.
-```
-gcloud compute instances create www1 \
-  --image-family debian-9 \
-  --image-project debian-cloud \
-  --zone us-central1-a \
-  --tags network-lb-tag \
-  --metadata startup-script="#! /bin/bash
-    sudo apt-get update
-    sudo apt-get install apache2 -y
-    sudo service apache2 restart
-    echo '<!doctype html><html><body><h1>www1</h1></body></html>' | tee /var/www/html/index.html"
-```
-
-```
-gcloud compute instances create www2 \
-  --image-family debian-9 \
-  --image-project debian-cloud \
-  --zone us-central1-a \
-  --tags network-lb-tag \
-  --metadata startup-script="#! /bin/bash
-    sudo apt-get update
-    sudo apt-get install apache2 -y
-    sudo service apache2 restart
-    echo '<!doctype html><html><body><h1>www2</h1></body></html>' | tee /var/www/html/index.html"
-```
-```
-gcloud compute instances create www3 \
-  --image-family debian-9 \
-  --image-project debian-cloud \
-  --zone us-central1-a \
-  --tags network-lb-tag \
-  --metadata startup-script="#! /bin/bash
-    sudo apt-get update
-    sudo apt-get install apache2 -y
-    sudo service apache2 restart
-    echo '<!doctype html><html><body><h1>www3</h1></body></html>' | tee /var/www/html/index.html"
-```
-
-2. Create a firewall rule to allow external traffic to the VM instances:
-```bash
-gcloud compute firewall-rules create www-firewall-network-lb \
-    --target-tags network-lb-tag --allow tcp:80
-```
-3. Now you need to get the external IP addresses of your instances and verify that they are running. Run the following to list your instances. You'll see their IP addresses in the EXTERNAL_IP column:
-```bash
-gcloud compute instances list
-```
-4. Verify that each instance is running with curl, replacing [IP_ADDRESS] with the IP address for each of your VMs:
-```bash
-curl http://[IP_ADDRESS]
-```
-
-----
-## Test your Understanding
-1. Serverless lets you write and deploy code without the hassle of managing the underlying infrastructure.
-- [x] True
-- [ ] False
-
-# Set Up Network and HTTP Load Balancers
+# Lab 03-05: Set Up Network and HTTP Load Balancers
 In this hands-on lab you'll learn the differences between a network load balancer and an HTTP load balancer and how to set them up for your applications running on Compute Engine virtual machines (VMs).
 
 ## Task 1: Set the default region and zone for all resources

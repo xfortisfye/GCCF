@@ -1,7 +1,7 @@
-# Google Cloud Computing Foundations: Infrastructure in Google Cloud
-## Quiz: There's an API for That!
+#### Google Cloud Computing Foundations | C02 Infrastructure in Google Cloud
+#### M05: There's an API for That!
 
-- - - -
+# Quiz: There's an API for That!
 
 1. 
 - [ ] 

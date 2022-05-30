@@ -1,4 +1,6 @@
-# Google Cloud Computing Foundations: Cloud Computing Fundamentals
+#### Google Cloud Computing Foundations | C01 Cloud Computing Fundamentals
+#### M01-M02-M03
+
 # Create and Manage Cloud Resources: Challenge Lab
 
 ## Challenge scenario
@@ -207,5 +209,5 @@ gcloud compute forwarding-rules list
 # Your browser should render a page with content showing the name of the instance that served the page, along with its zone (for example, Page served from: lb-backend-group-xxxx).
 ```
 
-
+## References
 https://mayankchourasia2.medium.com/getting-started-create-and-manage-cloud-resources-challenge-lab-6aade9186bdd
