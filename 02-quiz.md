@@ -1,5 +1,7 @@
-# Quiz: Start with a Solid Platform
+# Google Cloud Computing Foundations: Cloud Computing Fundamentals
+## Quiz: Start with a Solid Platform
 
+- - - - 
 1. Which of the following is a command line tool that is part of the Cloud SDK?
 - [ ] git
 - [x] gsutil

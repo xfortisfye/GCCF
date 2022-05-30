@@ -1,3 +1,4 @@
+# Google Cloud Computing Foundations: Cloud Computing Fundamentals
 # Create and Manage Cloud Resources: Challenge Lab
 
 ## Challenge scenario
@@ -72,11 +73,13 @@ Requirements:
 
 __Answer__
 ```bash
-# gcloud compute project-info describe --project <your_project_ID>
-gcloud config get-value compute/zone
-gcloud config get-value compute/region
+# create virtual machine with GCP 
+# Navigation Menu > Compute Engine > VM Instances
+# or
+# create virtual machine with gcloud tool
+
 # gcloud compute instances create --help
-gcloud compute instances create jooli-instance-1 --machine-type f1-micro --image-family debian-11
+# gcloud compute instances create nucleus-jumphost-337 --machine-type f1-micro
 ```
 
 ## Task 2. Create a Kubernetes service cluster
@@ -94,7 +97,7 @@ __Answer__
 gcloud config set compute/zone us-east1-b
 
 # create a GKE cluster
-export CLUSTER=jooli-us-east-cluster
+export CLUSTER=nucleus-webserver1
 gcloud container clusters create $CLUSTER
 
 # get authentication credentials for cluster
@@ -105,15 +108,13 @@ gcloud container clusters get-credentials $CLUSTER
 kubectl create deployment hello-server --image=gcr.io/google-samples/hello-app:2.0
 
 # create a Kubernetes service that expose application/container to external traffic and a Compute Engine load balancer for container
-kubectl expose deployment hello-server --type=LoadBalancer --port 8080
+kubectl expose deployment hello-server --type=LoadBalancer --port 8083
 
 # inspect hello-server Service. It may take a minute for an external IP to be generated if status is pending.
 kubectl get service
 
 # another way to check would be visiting external IP of hello-server
 curl http://[EXTERNAL-IP]:8080
-
-
 ```
 
 ## Task 3. Set up an HTTP load balancer
@@ -143,4 +144,68 @@ You need to:
 
 __Answer__
 ```bash
+# save file for startup-script
+cat << EOF > startup.sh
+#! /bin/bash
+apt-get update
+apt-get install -y nginx
+service nginx start
+sed -i -- 's/nginx/Google Cloud Platform - '"\$HOSTNAME"'/' /var/www/html/index.nginx-debian.html
+EOF
+
+# create load balancer template
+# To set up a load balancer with a Compute Engine backend, your VMs need to be in an instance group. The managed instance group provides VMs running the backend servers of an external HTTP load balancer. For this lab, backends serve their own hostnames
+gcloud compute instance-templates create nginx-template --metadata-from-file startup-script=startup.sh
+
+# create a target pool
+gcloud compute target-pools create nginx-pool
+
+# create a Managed Instance Group based on template
+gcloud compute instance-groups managed create nginx-group --base-instance-name nginx --size 2 --template nginx-template --target-pool nginx-pool
+
+# check
+gcloud compute instances list
+
+# create a firewall rule
+gcloud compute firewall-rules create accept-tcp-rule-889 --allow tcp:80
+
+# set up global static external IP address for customers to reach load balancer
+gcloud compute forwarding-rules create nginx-lb --region us-east1 --ports 80 --target-pool nginx-pool
+
+# check
+gcloud compute forwarding-rules list
+
+# create health check
+gcloud compute http-health-checks create http-basic-check
+gcloud compute instance-groups managed set-named-ports nginx-group --named-ports http:80
+    # --port 80
+
+# create backend service and attach MIG with named port (http:80)
+gcloud compute backend-services create nginx-backend --protocol=HTTP --http-health-checks http-basic-check --global
+
+# add instance group to MIG
+gcloud compute backend-services add-backend nginx-backend --instance-group nginx-group --instance-group-zone us-east1-b --global
+
+# create URL map
+gcloud compute url-maps create web-map --default-service nginx-backend
+
+# target HTTP proxy to route request to URL map
+gcloud compute target-http-proxies create http-lb-proxy --url-map web-map
+
+# create global forwarding rule to route incoming requests to proxy
+gcloud compute forwarding-rules create http-content-rule --global --target-http-proxy=http-lb-proxy --ports=80
+
+#check
+gcloud compute forwarding-rules list
+
+# test traffic sent to instance
+# In the Cloud Console, from the Navigation menu, go to Network services > Load balancing.
+# Click on just created load balancer (web-map-http)
+# In the Backend section, click on the name of the backend and confirm that the VMs are Healthy. If they are not healthy, wait a few moments and try reloading the page.
+# When the VMs are healthy, test the load balancer using a web browser, going to http://IP_ADDRESS/, replacing IP_ADDRESS with the load balancer's IP address.
+# This may take three to five minutes. If you do not connect, wait a minute, and then reload the browser.
+# Your browser should render a page with content showing the name of the instance that served the page, along with its zone (for example, Page served from: lb-backend-group-xxxx).
 ```
+
+
+https://mayankchourasia2.medium.com/getting-started-create-and-manage-cloud-resources-challenge-lab-6aade9186bdd

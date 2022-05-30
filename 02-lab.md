@@ -1,4 +1,8 @@
-# Getting Started with Cloud Shell and gcloud
+# Google Cloud Computing Foundations
+## Cloud Computing Fundamentals
+### Chapter 02: Start with a Solid Platform 
+#### Lab 01: Getting Started with Cloud Shell and gcloud
+- - - - 
 
 ## Overview 
 Cloud Shell provides you with command-line access to computing resources hosted on Google Cloud. Cloud Shell is a Debian-based virtual machine with a persistent 5-GB home directory, which makes it easy for you to manage your Google Cloud projects and resources. The gcloud command-line tool and other utilities you need are pre-installed in Cloud Shell, which allows you to get up and running quickly.

@@ -1,3 +1,7 @@
+# Google Cloud Computing Foundations: Cloud Computing Fundamentals
+## Lab: Use Google Cloud to Build Your Apps
+
+- - - -
 # Create a Virtual Machine
 
 ## Overview 
@@ -560,7 +564,8 @@ gcloud compute http-health-checks create basic-check
 ```
 3. Add a target pool in the same region as your instances. Run the following to create the target pool and use the health check, which is required for the service to function
 ```bash
-gcloud compute http-health-checks create basic-check
+gcloud compute target-pools create www-pool \
+    --region us-central1 --http-health-check basic-check
 ```
 4. Add the instances to the pool
 ```bash
