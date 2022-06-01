@@ -6,7 +6,7 @@
 ## Overview 
 Compute Engine (IaaS) lets you create virtual machines that run different operating systems, including multiple flavors of Linux (Debian, Ubuntu, Suse, Red Hat, CoreOS) and Windows Server, on Google infrastructure. You can run thousands of virtual CPUs on a system that is designed to be fast and to offer strong consistency of performance.
 
-----
+- - - - 
 ## Task 1: Create a new instance from the Cloud Console
 
 1. In the Cloud Console, on the Navigation menu (Navigation menu), click Compute Engine > VM Instances. 
