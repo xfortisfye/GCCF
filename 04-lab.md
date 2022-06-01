@@ -41,7 +41,7 @@ Cloud Storage allows world-wide storage and retrieval of any amount of data at a
 ## Test your understanding
 1. Each bucket has a default storage class, which you can specify when you create your bucket.
 - [x] True
-- [x] False
+- [ ] False
 ----
 
 ## Upload an object into your bucket
@@ -156,13 +156,52 @@ Your image is now public, and can be made available to anyone.
 
 Validate that your image is publicly available. Go to Navigation menu > Cloud Storage, then click on the name of your bucket. You should see your image with the Public link box. Click the Copy URL and open the URL in a new browser tab.
 
+> Who are you looking at? This is Ada Lovelace, credited with being the first computer programmer. She worked with mathematician and computer pioneer Charles Babbage, who proposed the Analytical Engine. Her interest in the Analytical Engine lead to translating a paper on the machine by Italian mathematician Luigi Menabrea, adding her own extensive annotations. These notes are considered the first computer program - an algorithm designed to be carried out by the machine. She developed a vision of the capability of computers, going beyond number crunching, and examined how individuals and society relate to technology as a collaborative tool. Citation: Ada Lovelace, https://commons.wikimedia.org/w/index.php?title=Ada_Lovelace&oldid=176490980 (last visited December 6, 2017).
+
+----
+## Test your understanding
+1. An access control list (ACL) is a mechanism you can use to define who has access to your buckets and objects.
+- [x] True
+- [ ] False
+----
+
+## Remove public access
+
+To remove this permission, use the command:
+
+```bash
+gsutil acl ch -d AllUsers gs://YOUR-BUCKET-NAME/ada.jpg
+```
+If successful, the command returns:
+
+```bash
+Updated ACL on gs://YOUR-BUCKET-NAME/ada.jpg
+```
+
+You have removed public access to this object. You can verify this by clicking the Refresh button in the Console. The checkmark will be removed.
+
 ----
 ## Test your understanding
 1. You can stop publicly sharing an object by removing permission entry that have:
 - [ ] By updating storage class
-- [ ] allUsers
+- [x] allUsers
 - [ ] By removing project owner role
 ----
+
+### Delete objects
+
+Use the gsutil rm command to delete an object - the image file in your bucket:
+
+```bash
+gsutil rm gs://YOUR-BUCKET-NAME/ada.jpg
+```
+If successful, the command returns:
+
+```bash
+Removing gs://YOUR-BUCKET-NAME/ada.jpg...
+```
+
+Refresh the Console. The copy of the image file is no longer stored on Cloud Storage (though the copy you made in the image-folder/ folder still exists).
 
 # Lab 04-02: Cloud SQL for MySQL: Qwik Start
 
@@ -186,7 +225,7 @@ After a few minutes the instance is created and you can continue to the next sec
 ## Test your understanding
 1. Instance ID is used to uniquely identify your instance within the project.
 - [x] True
-- [x] False
+- [ ] False
 ----
 
 ## Connect to your instance using the mysql client in the Cloud Shell
@@ -217,7 +256,7 @@ CREATE DATABASE guestbook;
 USE guestbook;
 CREATE TABLE entries (guestName VARCHAR(255), content VARCHAR(255),
     entryID INT NOT NULL AUTO_INCREMENT, PRIMARY KEY(entryID));
-    INSERT INTO entries (guestName, content) values ("first guest", "I got here!");
+INSERT INTO entries (guestName, content) values ("first guest", "I got here!");
 INSERT INTO entries (guestName, content) values ("second guest", "Me too!");
 ```
 
