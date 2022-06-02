@@ -9,7 +9,9 @@ Cloud Storage allows world-wide storage and retrieval of any amount of data at a
 - - - -
 ## Create a bucket
 1. In the Cloud Console, go to Navigation menu > Cloud Storage > Browser. Click CREATE BUCKET
+
 2. Name your bucket: Enter a unique name for your bucket.
+
 3. Bucket naming rules:
 * Do not include sensitive information in the bucket name, because the bucket namespace is global and publicly visible.
 * Bucket names must contain only lowercase letters, numbers, dashes (-), underscores (_), and dots (.). Names containing dots require verification.
@@ -19,16 +21,27 @@ Cloud Storage allows world-wide storage and retrieval of any amount of data at a
 * Bucket names cannot begin with the "goog" prefix.
 * Bucket names cannot contain "google" or close misspellings of "google".
 * Also, for DNS compliance and future compatibility, you should not use underscores (_) or have a period adjacent to another period or dash. For example, ".." or "-." or ".-" are not valid in DNS names.
+
 4. Click __CONTINUE__.
+
 5. Location type: Multi-region
+
 6. Location: us (multiple regions in United States)
+
 7. Click __CONTINUE__.
+
 8. Default Storage class: Standard
+
 9. Click __CONTINUE__.
+
 10. Uncheck _Enforce public access prevention on this bucket_ checkbox under Prevent public access.
+
 11. Choose Fine-grained under Access Control.
+
 12. Click __CONTINUE__.
+
 13. Once you've gotten your bucket configured, click CREATE:
+
 14. That's it — you've just created a Cloud Storage bucket!
 
 > Note: If the bucket name is already taken, either by you or someone else, the command returns:
@@ -45,7 +58,6 @@ Cloud Storage allows world-wide storage and retrieval of any amount of data at a
 ----
 
 ## Upload an object into your bucket
-
 Now upload an object into a bucket.
 
 First, download this image to a temporary instance (ada.jpg) in Cloud Shell:
@@ -88,7 +100,6 @@ Operation completed over 1 objects/299.6 KiB.
 You've just downloaded the image from your bucket.
 
 ## Copy an object to a folder in the bucket
-
 Use the `gsutil cp` command to create a folder called image-folder and copy the image (ada.jpg) into it:
 
 ```bash
@@ -107,7 +118,6 @@ Now the image file has been copied into a new folder in your bucket.
 ```
 
 ## List contents of a bucket or folder
-
 Use the `gsutil ls` command to list the contents of the bucket:
 
 ```bash
@@ -140,7 +150,6 @@ TOTAL: 1 objects, 30678 bytes (299.58 KiB)
 Now you know the image's size and date of creation.
 
 ## Make your object publicly accessible
-
 Use the `gsutil acl ch` command to grant all users read permission for the object stored in your bucket:
 
 ```bash
@@ -166,7 +175,6 @@ Validate that your image is publicly available. Go to Navigation menu > Cloud St
 ----
 
 ## Remove public access
-
 To remove this permission, use the command:
 
 ```bash
@@ -189,7 +197,6 @@ You have removed public access to this object. You can verify this by clicking t
 ----
 
 ### Delete objects
-
 Use the gsutil rm command to delete an object - the image file in your bucket:
 
 ```bash
@@ -209,16 +216,17 @@ Refresh the Console. The copy of the image file is no longer stored on Cloud Sto
 In this lab you will learn how to create and connect to a Google Cloud SQL MySQL instance and perform basic SQL operations using the Cloud Console and the mysql client.
 
 ## Create a Cloud SQL instance
-
 1. From the Navigation menu, click on SQL.
+
 2. Click Create Instance.
+
 3. Create your instance with the following settings:
 * Click choose MySQL
 * Type "myinstance" for Instance ID
 * In the password field click on the Generate link and the eye icon to see the password. Save the password, you'll need it in the next section.
 * Use the default values for the other fields.
-4. Click Create Instance.
 
+4. Click Create Instance.
 After a few minutes the instance is created and you can continue to the next section. If it seems to be taking a long time, refresh your browser.
 
 ----
@@ -229,21 +237,25 @@ After a few minutes the instance is created and you can continue to the next sec
 ----
 
 ## Connect to your instance using the mysql client in the Cloud Shell
-
 1. In the Cloud Console, click the Cloud Shell icon in the upper right corner.
+
 2. Then click Continue.
+
 3. At the Cloud Shell prompt, connect to your Cloud SQL instance by running the following:
 
 ```bash
 gcloud sql connect myinstance --user=root
 ```
+
 4. Click Authorize.
+
 5. Enter your root password when prompted. Note: The cursor will not move.
+
 6. Press the Enter key when you're done typing.
+
 7. You should now see the `mysql` prompt.
 
 ## Create a database and upload data
-
 1. Create a SQL database called guestbook on your Cloud SQL instance:
 
 ```sql
