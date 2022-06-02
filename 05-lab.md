@@ -44,18 +44,18 @@ Run the following script, which is included in the sample:
 ./deploy_api.sh
 ```
 
-Cloud Endpoints uses the host field in the OpenAPI configuration file to identify the service. The deploy_api.sh script sets the ID of your Cloud project as part of the name configured in the host field. (When you prepare an OpenAPI configuration file for your own service, you will need to do this manually.)
+Cloud Endpoints uses the `host` field in the OpenAPI configuration file to identify the service. The `deploy_api.sh` script sets the ID of your Cloud project as part of the name configured in the `host` field. (When you prepare an OpenAPI configuration file for your own service, you will need to do this manually.)
 
-The script then deploys the OpenAPI configuration to Service Management using the command: gcloud endpoints services deploy openapi.yaml
+The script then deploys the OpenAPI configuration to Service Management using the command: `gcloud endpoints services deploy openapi.yaml`
 
-As it is creating and configuring the service, Service Management outputs some information to the console. You can safely ignore the warnings about the paths in openapi.yaml not requiring an API key. On successful completion, you see a line like the following that displays the service configuration ID and the service name:
+As it is creating and configuring the service, Service Management outputs some information to the console. You can safely ignore the warnings about the paths in `openapi.yaml` not requiring an API key. On successful completion, you see a line like the following that displays the service configuration ID and the service name:
 
 ```bash
 Service Configuration [2017-02-13-r2] uploaded for service [airports-api.endpoints.example-project.cloud.goog]
 ```
 
 ## Deploying the API backend
-So far you have deployed the OpenAPI configuration to Service Management, but you have not yet deployed the code that will serve the API backend. The deploy_app.sh script included in the lab sample creates an App Engine flexible environment to host the API backend, and then the script deploys the API to App Engine.
+So far you have deployed the OpenAPI configuration to Service Management, but you have not yet deployed the code that will serve the API backend. The `deploy_app.sh` script included in the lab sample creates an App Engine flexible environment to host the API backend, and then the script deploys the API to App Engine.
 
 To deploy the API backend, make sure you are in the endpoints-quickstart/scripts directory. Then, run the following script:
 
@@ -190,7 +190,7 @@ You'll see something like the following on the console:
 ```bash
 {
     "code": 8,
-    "message": "Insufficient tokens for quota 'airport_requests' and limit 'limit-on-airport-requests' of service 'example-project.appspot.com' for consumer 'api_key:AIzeSyDbdQdaSdhPMdiAuddd_FALbY7JevoMzAB'.",
+    "message": "Quota exceeded for quota metric 'airport_requests' and limit 'limit-on-airport-requests' of service 'example-project.appspot.com' for consumer 'api_key:AIzeSyDbdQdaSdhPMdiAuddd_FALbY7JevoMzAB'.",
     "details": [
     {
     "@type": "type.googleapis.com/google.rpc.DebugInfo",
@@ -201,8 +201,9 @@ You'll see something like the following on the console:
 }
 ```
 
-If you get a different response, try running the generate_traffic_with_key.sh script again and retry. Click Check my progress to verify the objective.
+If you get a different response, try running the `generate_traffic_with_key.sh` script again and retry. 
 
+----
 # Lab 05-02: Google Cloud Pub/Sub: Qwik Start - Python
 
 ## Overview
@@ -362,11 +363,11 @@ Click Ctrl+c to stop listening.
 ## Test your understanding
 1. Google Cloud Pub/Sub service allows applications to exchange messages reliably, quickly, and asynchronously.
 - [x] True
-- [x] False
+- [ ] False
 
 2. A _____ is a shared string that allows applications to connect with one another.
-- [x] subscription
-- [x] message
+- [ ] subscription
+- [ ] message
 - [x] topic
 
 ----

@@ -5,8 +5,7 @@
 
 ## Overview 
 Compute Engine (IaaS) lets you create virtual machines that run different operating systems, including multiple flavors of Linux (Debian, Ubuntu, Suse, Red Hat, CoreOS) and Windows Server, on Google infrastructure. You can run thousands of virtual CPUs on a system that is designed to be fast and to offer strong consistency of performance.
-
-- - - - 
+ 
 ## Task 1: Create a new instance from the Cloud Console
 1. In the Cloud Console, on the Navigation menu (Navigation menu), click Compute Engine > VM Instances. 
 > Note: This may take a minute to initialize for the first time.
@@ -145,7 +144,6 @@ The App Engine standard environment makes it easy to build and deploy an applica
 
 Applications run in a secure, sandboxed environment, allowing App Engine standard environment to distribute requests across multiple servers, and scaling servers to meet traffic demands. Your application runs within its own secure, reliable environment that is independent of the hardware, operating system, or physical location of the server.
 
-----
 ## Enable Google App Enginge Admin API
 The App Engine Admin API enables developers to provision and manage their App Engine Applications.
 
@@ -307,18 +305,18 @@ Cloud Functions (SaaS) is a serverless execution environment for building and co
 
 Cloud Functions can be written in Node.js, Python, and Go, and are executed in language-specific runtimes as well. You can take your Cloud Function and run it in any standard Node.js runtime which makes both portability and local testing a breeze.
 
-## Connect and Extend Cloud Services
+### Connect and Extend Cloud Services
 Cloud Functions provides a connective layer of logic that lets you write code to connect and extend cloud services. Listen and respond to a file upload to Cloud Storage, a log change, or an incoming message on a Cloud Pub/Sub topic. Cloud Functions augments existing cloud services and allows you to address an increasing number of use cases with arbitrary programming logic. Cloud Functions have access to the Google Service Account credential and are thus seamlessly authenticated with the majority of Google Cloud services such as Datastore, Cloud Spanner, Cloud Translation API, Cloud Vision API, as well as many others. In addition, Cloud Functions are supported by numerous Node.js client libraries, which further simplify these integrations.
 
-## Events and Triggers
+### Events and Triggers
 Cloud events are things that happen in your cloud environment.These might be things like changes to data in a database, files added to a storage system, or a new virtual machine instance being created.
 
 Events occur whether or not you choose to respond to them. You create a response to an event with a trigger. A trigger is a declaration that you are interested in a certain event or set of events. Binding a function to a trigger allows you to capture and act on events. For more information on creating triggers and associating them with your functions, see Events and Triggers.
 
-## Serverless
+### Serverless
 Cloud Functions removes the work of managing servers, configuring software, updating frameworks, and patching operating systems. The software and infrastructure are fully managed by Google so that you just add code. Furthermore, provisioning of resources happens automatically in response to events. This means that a function can scale from a few invocations a day to many millions of invocations without any work from you.
 
-## Use Cases
+### Use Cases
 Asynchronous workloads, for example lightweight ETL or cloud automations, like triggering application builds, no longer need their own server and a developer to wire it up. You simply deploy a Cloud Function bound to the event you want and you're done.
 
 The fine-grained, on-demand nature of Cloud Functions also makes it a perfect candidate for lightweight APIs and webhooks. Because there is automatic provisioning of HTTP endpoints when you deploy an HTTP Function, there is no complicated configuration required as there is with some other services. See the following table for additional common Cloud Functions use cases:
@@ -331,7 +329,6 @@ The fine-grained, on-demand nature of Cloud Functions also makes it a perfect ca
 | Mobile Backend | Use Google's mobile platform for app developers, Firebase, and write your mobile backend in Cloud Functions. Listen and respond to events from Firebase Analytics, Realtime Database, Authentication, and Storage. |
 | IoT | Imagine tens or hundreds of thousands of devices streaming data into Cloud Pub/Sub, thereby launching Cloud Functions to process, transform and store data. Cloud Functions lets you do in a way that's completely serverless. |
 
-----
 ## Create a Function
 First, you're going to create a simple function named helloWorld. This function writes a message to the Cloud Functions logs. It is triggered by cloud function events and accepts a callback function used to signal completion of the function.
 
@@ -459,7 +456,6 @@ When you run a GKE cluster, you also gain the benefit of advanced cluster manage
 * Node auto-repair to maintain node health and availability
 * Logging and Monitoring with Cloud Monitoring for visibility into your cluster
 
-----
 ## Task 1: Set a default compute zone
 Your compute zone is an approximate regional location in which your clusters and their resources live. For example, us-central1-a is a zone in the us-central1 region.
 ```bash
@@ -564,7 +560,6 @@ gcloud container clusters delete [CLUSTER-NAME]
 > Note: Deleting the cluster can take a few minutes. For more information on deleted GKE clusters, view the documentation.
 
 ----
-
 # Lab 03-05: Set Up Network and HTTP Load Balancers
 In this hands-on lab you'll learn the differences between a network load balancer and an HTTP load balancer and how to set them up for your applications running on Compute Engine virtual machines (VMs).
 

@@ -335,6 +335,8 @@ Notice that the email address provided by the verified method does not have the 
 
 If IAP is turned off or bypassed, the verified data would either be missing, or invalid, since it cannot have a valid signature unless it was created by the holder of Google's private keys.
 
+
+----
 # Lab 06-02: Cloud IAM: Qwik Start
 
 ## Overview 

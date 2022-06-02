@@ -6,7 +6,6 @@
 ## Overview 
 Cloud Storage allows world-wide storage and retrieval of any amount of data at any time. You can use Cloud Storage for a range of scenarios including serving website content, storing data for archival and disaster recovery, or distributing large data objects to users via direct download.
 
-- - - -
 ## Create a bucket
 1. In the Cloud Console, go to Navigation menu > Cloud Storage > Browser. Click CREATE BUCKET
 
@@ -210,6 +209,7 @@ Removing gs://YOUR-BUCKET-NAME/ada.jpg...
 
 Refresh the Console. The copy of the image file is no longer stored on Cloud Storage (though the copy you made in the image-folder/ folder still exists).
 
+----
 # Lab 04-02: Cloud SQL for MySQL: Qwik Start
 
 ## Overview 

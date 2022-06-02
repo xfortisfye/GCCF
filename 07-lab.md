@@ -525,14 +525,17 @@ default via 172.16.0.1 dev eth0
 
 > The primary interface eth0 gets the default route (default via 172.16.0.1 dev eth0), and all three interfaces eth0, eth1 and eth2 get routes for their respective subnets. Since, the subnet of mynet-eu-vm (10.132.0.0/20) is not included in this routing table, the ping to that instance leaves vm-appliance on eth0 (which is on a different VPC network). You could change this behavior by configuring policy routing as documented here.
 
-# Lab 07-02: xx
+----
+# Lab 07-02: VPC Networks - Controlling Access
 
 ## Overview 
 
-# Lab 07-03: xx
+----
+# Lab 07-03: HTTP Load Balancer with Cloud Armor
 
 ## Overview 
 
-# Lab 07-04: xx
+----
+# Lab 07-04: Create an Internal Load Balancer
 
 ## Overview 
