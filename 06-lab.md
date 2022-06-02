@@ -4,7 +4,6 @@
 # Lab 06-01: User Authentication: Identity-Aware Proxy
 
 ## Overview 
-
 In this lab, you build a minimal web application with Google App Engine, then explore various ways to use Identity-Aware Proxy (IAP) to restrict access to the application and provide user identity information to it. Your app will:
 
 * Display a welcome page
@@ -14,16 +13,13 @@ In this lab, you build a minimal web application with Google App Engine, then ex
 * Use cryptographic verification to prevent spoofing of user identity information
 
 ## Introduction
-
 Authenticating users of your web app is often necessary, and usually requires special programming in your app. For Google Cloud apps you can hand those responsibilities off to the Identity-Aware Proxy service. If you only need to restrict access to selected users there are no changes necessary to the application. Should the application need to know the user's identity (such as for keeping user preferences server-side) Identity-Aware Proxy can provide that with minimal application code.
 
 ### What is Identity-Aware Proxy?
-
 Identity-Aware Proxy (IAP) is a Google Cloud service that intercepts web requests sent to your application, authenticates the user making the request using the Google Identity Service, and only lets the requests through if they come from a user you authorize. In addition, it can modify the request headers to include information about the authenticated user.
 
 
 ## Download the Code
-
 Click the command line area in the Cloud Shell so you can type commands.
 
 Download the code from a public storage bucket and then change to the code folder:
@@ -43,7 +39,6 @@ cd user-authentication-with-iap
 This folder contains one subfolder for each step of this lab. You will change to the correct folder to perform each step.
 
 ## Deploy Application and Protect it with IAP
-
 This is an App Engine Standard application written in Python that simply displays a "Hello, World" welcome page. We will deploy and test it, then restrict access to it using IAP.
 
 ### Review the Application Code
@@ -92,7 +87,6 @@ Click the displayed link to open it in a new tab, or copy it to a manually opene
 You can open that same URL from any computer connected to the Internet to see that web page. Access is not yet restricted.
 
 ### Restrict Access with IAP
-
 1. In the cloud console window, click the Navigation menu > Security > Identity-Aware Proxy.
 
 2. Click ENABLE API.
@@ -137,7 +131,6 @@ Click the toggle button in the IAP column in the App Engine app row to turn IAP 
 12. The domain will be protected by IAP. Click TURN ON.
 
 ### Test that IAP is turned on
-
 1. Open a browser tab and navigate to the URL for your app. A Sign in with Google screen opens and requires you to log in to access the app.
 
 2. Sign in with the account you used to log into the console. You will see a screen denying you access.
@@ -161,7 +154,6 @@ You may enter more addresses or GSuite domains in the same way.
 The message "Policy Updated" will appear at the bottom of the window.
 
 ### Test access
-
 Navigate back to your app and reload the page. You should now see your web app, since you already logged in with a user you authorized.
 
 If you still see the "You don't have access" page, IAP did not recheck your authorization. In that case, do the following steps:
@@ -178,7 +170,6 @@ These steps cause IAP to recheck your access and you should now see your applica
 If you have access to another browser or can use Incognito Mode in your browser, and have another valid GMail or GSuite account, you can use that browser to navigate to your app page and log in with the other account. Since that account has not been authorized, it will see the "You Don't Have Access" screen instead of your app.
 
 ## Access User Identity Information
-
 Once an app is protected with IAP, it can use the identity information that IAP provides in the web request headers it passes through. In this step, the application will get the logged-in user's email address and a persistent unique user ID assigned by the Google Identity Service to that user. That data will be displayed to the user in the welcome page.
 
 In Cloud Shell, change to the folder for this step:
@@ -188,7 +179,6 @@ cd ~/user-authentication-with-iap/2-HelloUser
 ```
 
 ### Deploy to App Engine
-
 Since deployment takes a few minutes, start by deploying the app to the App Engine Standard environment for Python:
 
 ```bash
@@ -200,7 +190,6 @@ When you are asked if you want to continue, enter Y for yes.
 In a few minutes the deployment should complete. While you are waiting you can examine the application files as described below.
 
 ### Examine the Application Files
-
 This folder contains the same set of files as seen in the previous app you deployed, 1-HelloWorld, but two of the files have been changed: main.py and templates/index.html. The program has been changed to retrieve the user information that IAP provides in request headers, and the template now displays that data.
 
 There are two lines in main.py that get the IAP-provided identity data:
@@ -225,7 +214,6 @@ Hello, {{ email }}! Your persistent ID is {{ id }}.
 As you can see, the provided data is prefixed with accounts.google.com, showing where the information came from. Your application can remove everything up to and including the colon to get the raw values if desired.
 
 ### Test the updated IAP
-
 Going back to the deployment, when it is ready, you will see a message that you can view your application with gcloud app browse.
 
 1. Enter that command.
@@ -277,7 +265,6 @@ The web page will be displayed on the command line, and look like the following 
 There is no way for the application to know that IAP has been disabled or bypassed. For cases where that is a potential risk, Cryptographic Verification shows a solution.
 
 ## Use Cryptographic Verification
-
 If there is a risk of IAP being turned off or bypassed, your app can check to make sure the identity information it receives is valid. This uses a third web request header added by IAP, called X-Goog-IAP-JWT-Assertion. The value of the header is a cryptographically signed object that also contains the user identity data. Your application can verify the digital signature and use the data provided in this object to be certain that it was provided by IAP without alteration.
 
 Digital signature verification requires several extra steps, such as retrieving the latest set of Google public keys. You can decide whether your application needs these extra steps based on the risk that someone might be able to turn off or bypass IAP, and the sensitivity of the application.
@@ -322,7 +309,6 @@ The signed object has two pieces of data we need: the verified email address, an
 This completes Step 3.
 
 ### Test the Cryptographic Verification
-
 When the deployment is ready you will see a message that you can view your application with gcloud app browse.
 
 Enter that command:
@@ -349,8 +335,6 @@ Notice that the email address provided by the verified method does not have the 
 
 If IAP is turned off or bypassed, the verified data would either be missing, or invalid, since it cannot have a valid signature unless it was created by the holder of Google's private keys.
 
-
-
 # Lab 06-02: Cloud IAM: Qwik Start
 
 ## Overview 
@@ -359,9 +343,10 @@ Google Cloud's Identity and Access Management (IAM) service lets you create and 
 In this hands-on lab you learn how to assign a role to a second user and remove assigned roles associated with Cloud IAM. More specifically, you sign in with 2 different sets of credentials to experience how granting and revoking permissions works from Google Cloud Project Owner and Viewer roles.
 
 ## The IAM console and project level roles
-
 1. Return to the Username 1 Cloud Console page.
+
 2. Select Navigation menu > IAM & Admin > IAM. You are now in the "IAM & Admin" console.
+
 3. Click +ADD button at the top of the page and explore the project roles associated with Projects by clicking on the "Select a role" dropdown menu.
 
 There are four roles:
@@ -387,7 +372,6 @@ Since you are able to manage roles and permissions for this project, Username 1 
 4. Click CANCEL to exit out of the "Add principal" panel.
 
 ## Explore editor roles
-
 Now switch to the Username 2 console.
 
 1. Navigate to the IAM & Admin console, select Navigation menu > IAM & Admin > IAM.
@@ -403,11 +387,9 @@ This is one example of how IAM roles affect what you can and cannot do in Google
 3. Switch back to the Username 1 console for the next step.
 
 ## Prepare a resource for access testing
-
 Ensure that you are in the Username 1 Cloud Console.
 
 ### Create a bucket
-
 1. Create a Cloud Storage bucket with a unique name. From the Cloud Console, select Navigation menu > Cloud Storage > Browser.
 
 2. Click CREATE BUCKET.
@@ -427,7 +409,6 @@ Note the bucket name. You will use it in a later step.
 > Note: If you get a permissions error for bucket creation, sign out and then sign in back in with the Username 1 credentials.
 
 ### Upload a sample file
-
 1. On the Bucket Details page click UPLOAD FILES.
 
 2. Browse your computer to find a file to use. Any text or html file will do.
@@ -441,7 +422,6 @@ Note the bucket name. You will use it in a later step.
 Click Check my progress to verify the objective.
 
 ### Verify project viewer access
-
 1. Switch to the Username 2 console.
 
 2. From the Console, select Navigation menu > Cloud Storage > Browser. Verify that this user can see the bucket.
@@ -449,11 +429,9 @@ Click Check my progress to verify the objective.
 Username 2 has the "Viewer" role prescribed which allows them read-only actions that do not affect state. This example illustrates this feature—they can view Cloud Storage buckets and files that are hosted in the Google Cloud project that they've been granted access to.
 
 ## Remove project access
-
 Switch to the Username 1 console.
 
 ### Remove Project Viewer for Username 2
-
 1. Select Navigation menu > IAM & Admin > IAM. Then click the pencil icon inline and to the left of Username 2.
 
 > Note: You may have to widen the screen to see the pencil icon.
@@ -465,7 +443,6 @@ Notice that the user has disappeared from the Member list! The user has no acces
 > Note: It can take up to 80 seconds for such a change to take effect as it propagates. Read more about Google Cloud IAM in the Google Cloud IAMResource Documentation, Frequently asked questions.
 
 ### Verify that Username 2 has lost access
-
 1. Switch to Username 2 Cloud Console. Ensure that you are still signed in with Username 2's credentials and that you haven't been signed out of the project after permissions were revoked. If signed out, sign in back with the proper credentials.
 
 2. Navigate back to Cloud Storage by selecting Navigation menu > Cloud Storage > Browser.
@@ -475,7 +452,6 @@ You should see a permission error.
 > Note: As mentioned before, it can take up to 80 seconds for permissions to be revoked. If you haven't received a permission error, wait a 2 minutes and then try refreshing the console.
 
 ## Add Storage permissions
-
 1. Copy Username 2 name from the Lab Connection panel.
 
 2. Switch to Username 1 console. Ensure that you are still signed in with Username 1's credentials. If you are signed out, sign in back with the proper credentials.
@@ -489,7 +465,6 @@ You should see a permission error.
 6. Click SAVE.
 
 ## Verify access
-
 1. Switch to the Username 2 console. You'll still be on the Storage page.
 
 Username 2 doesn't have the Project Viewer role, so that user can't see the project or any of its resources in the Console. However, this user has specific access to Cloud Storage, the Storage Object Viewer role - check it out now.

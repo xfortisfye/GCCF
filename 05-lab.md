@@ -4,7 +4,6 @@
 # Lab 05-01: Cloud Endpoints: Qwik Start
 
 ## Overview 
-
 In this lab you will deploy a sample API with Google Cloud Endpoints, which are a set of tools for generating APIs from within an App Engine application. The sample code will include:
 
 * A REST API that you can query to find the name of an airport from its three-letter IATA code (for example, SFO, JFK, AMS).
@@ -28,8 +27,6 @@ cd endpoints-quickstart
 ```
 
 ## Deploying the Endpoints configuration
-
-
 To publish a REST API to Endpoints, an OpenAPI configuration file that describes the API is required. The lab's sample API comes with a pre-configured OpenAPI file called openapi.yaml.
 
 Endpoints uses Google Service Management, an infrastructure service of Google Cloud, to create and manage APIs and services. To use Endpoints to manage an API, you deploy the API's OpenAPI configuration to Service Management.
@@ -93,8 +90,6 @@ Deployed service [default] to [https://example-project.appspot.com]
 ```
 
 ## Sending requests to the API
-
-
 After deploying the sample API, you can send requests to it by running the following script:
 
 ```bash
@@ -117,7 +112,6 @@ To test, run this example in Cloud Shell:
 ```
 
 ## Tracking API activity
-
 With APIs deployed with Cloud Endpoints, you can monitor critical operations metrics in the Cloud Console and gain insight into your users and usage with Cloud Logging.
 
 Run this traffic generation script in Cloud Shell to populate the graphs and logs.
@@ -212,11 +206,9 @@ If you get a different response, try running the generate_traffic_with_key.sh sc
 # Lab 05-02: Google Cloud Pub/Sub: Qwik Start - Python
 
 ## Overview
-
 The Google Cloud Pub/Sub service allows applications to exchange messages reliably, quickly, and asynchronously. To accomplish this, a data producer publishes messages to a Cloud Pub/Sub topic. A subscriber client then creates a subscription to that topic and consumes messages from the subscription. Cloud Pub/Sub persists messages that could not be delivered reliably for up to seven days.
 
 ## Create a virtual environment
-
 Python virtual environments are used to isolate package installation from the system.
 
 ```bash
@@ -236,7 +228,6 @@ source venv/bin/activate
 ```
 
 ## Install the client library
-
 Run the following to install the client library:
 
 ```bash
@@ -256,7 +247,6 @@ cd python-pubsub/samples/snippets
 ```
 
 ## Pub/Sub - the Basics
-
 Google Cloud Pub/Sub is an asynchronous global messaging service. There are three terms in Pub/Sub that appear often: topics, publishing, and subscribing.
 
 A topic is a shared string that allows applications to connect with one another through a common thread.
@@ -266,11 +256,9 @@ Publishers push (or publish) a message to a Cloud Pub/Sub topic. Subscribers wil
 In sum, a publisher creates and sends messages to a topic and a subscriber creates a subscription to a topic to receive messages from it.
 
 ### Pub/Sub in Google CLoud
-
 Pub/Sub comes preinstalled in the Cloud Shell, so there are no installations or configurations required to get started with this service. In this lab you use Python to create the topic, subscriber, and then view the message. You use a gcloud command to publish the message to the topic.
 
 ## Create a topic
-
 To publish data to Cloud Pub/Sub you create a topic and then configure a publisher to the topic.
 
 In Cloud Shell, your Project ID should automatically be stored in the environment variable GOOGLE_CLOUD_PROJECT:
@@ -314,7 +302,6 @@ Navigate to Navigation menu > Pub/Sub > Topics.
 You should see MyTopic.
 
 ## Create a subscription
-
 Create a Pub/Sub subscription for topic with subscriber.py script:
 
 ```bash
@@ -338,7 +325,6 @@ python subscriber.py -h
 ```
 
 ## Publish messages
-
 Now that you've set up MyTopic (the topic), a subscription to MyTopic (MySub), see if you can use gcloud commands to publish a message to MyTopic.
 
 Publish the message "Hello" to MyTopic:
@@ -362,7 +348,6 @@ gcloud pubsub topics publish MyTopic --message "Publisher thinks Pub/Sub is awes
 ```
 
 ## View messages
-
 Now that you've published messages to MyTopic, pull and view the messages using MySub.
 
 Use MySub to pull the message from MyTopic:
