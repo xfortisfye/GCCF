@@ -84,6 +84,10 @@ gcloud app browse
 
 Click the displayed link to open it in a new tab, or copy it to a manually opened new tab if necessary. Since this is the first time this app is run, it will take a few seconds to appear while a cloud instance is started, and you should see the following window.
 
+```
+Hello World
+Hello, world! This is step 1 of the User Authentication with IAP codelab.
+```
 You can open that same URL from any computer connected to the Internet to see that web page. Access is not yet restricted.
 
 ### Restrict Access with IAP
@@ -224,6 +228,13 @@ gcloud app browse
 
 2. If a new tab does not open on your browser, copy the displayed link and open it in a new tab normally. You should see a page similar to the following:
 
+```
+Hello User
+Hello, accounts.google.com:student-03-263f5cacda75@qwiklabs.net! Your persistent ID appears to be accounts.google.com:105802647602155498687.
+
+This is step 2 of the User Authentication with IAP codelab.
+```
+
 You may need to wait a few minutes for the new version of your application to replace the prior version. Refresh the page if needed to see a page similar to the above.
 
 ### Turn off IAP
@@ -234,6 +245,13 @@ In the cloud console window, click Navigation menu > Security > Identity-Aware P
 You will be warned that this will allow all users to access the app.
 
 Refresh the application web page. You should see the same page, but without any user information:
+
+```
+Hello User
+Hello, None! Your persistent ID is None.
+
+This is step 2 of the User Authentication with IAP codelab.
+```
 
 Since the application is now unprotected, a user could send a web request that appeared to have passed through IAP. For example, you can run the following curl command from the Cloud Shell to do that (replace <your-url-here> with the correct URL for your app):
 
@@ -321,6 +339,15 @@ If a new tab does not open on your browser, copy the displayed link and open it 
 
 Recall that you previously disabled IAP, so the application provides no IAP data. You should see a page similar to the following:
 
+```
+Hello Verified User
+Hello, None! Your persistent ID appears to be None.
+
+Your verified email is None, and your verified persistent ID is None.
+
+This is step 3 of the User Authentication with IAP codelab.
+```
+
 As before, you may need to wait a few minutes for the newest version to be live to see the new version of the page.
 
 Since IAP is disabled, no user information is available. Now turn IAP back on.
@@ -330,6 +357,15 @@ Since IAP is disabled, no user information is available. Now turn IAP back on.
 2. Click the IAP toggle switch next to App Engine app to turn IAP on again. Click TURN ON.
 
 3. Refresh the page. The page should look like the following:
+
+```
+Hello Verified User
+Hello, accounts.google.com:student-03-263f5cacda75@qwiklabs.net! Your persistent ID appears to be accounts.google.com:105802647602155498687.
+
+Your verified email is student-03-263f5cacda75@qwiklabs.net, and your verified persistent ID is accounts.google.com:105802647602155498687.
+
+This is step 3 of the User Authentication with IAP codelab.
+```
 
 Notice that the email address provided by the verified method does not have the accounts.google.com: prefix.
 
@@ -488,13 +524,3 @@ gs://[YOUR_BUCKET_NAME]/sample.txt
 > Note: If you see AccessDeniedException, wait a minute and run the previous command again.
 
 4. As you can see, you gave Username 2 view access to the Cloud Storage bucket.
-
-## Test your understanding
-1. Google Cloud Pub/Sub service allows applications to exchange messages reliably, quickly, and asynchronously.
-- [x] True
-- [x] False
-
-2. A _____ is a shared string that allows applications to connect with one another.
-- [x] subscription
-- [x] message
-- [x] topic

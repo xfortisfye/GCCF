@@ -65,35 +65,17 @@ You need to:
 # Answer
 
 ## Task 1. Create a project jumphost instance
-You will use this instance to perform maintenance for the project.
+1. Create instance with Google Cloud Platform
 
-Requirements:
-
-* Name the instance `Instance name`.
-* Use an _f1-micro_ machine type.
-* Use the default image type (Debian Linux).
-
-__Answer__
+   1. Navigation Menu > Compute Engine > VM Instances
+   2. Name the instance
+   3. Select f1-micro machine type
+2. Create instance with Google Cloud Console
 ```bash
-# create virtual machine with GCP 
-# Navigation Menu > Compute Engine > VM Instances
-# or
-# create virtual machine with gcloud tool
-
-# gcloud compute instances create --help
 # gcloud compute instances create nucleus-jumphost-337 --machine-type f1-micro
 ```
 
 ## Task 2. Create a Kubernetes service cluster
-> Note: There is a limit to the resources you are allowed to create in your project. If you don't get the result you expected, delete the cluster before you create another cluster. If you don't, the lab might end and you might be blocked. In order to get your account unblocked, you will have to reach out to Qwiklabs Support.
-
-The team is building an application that will use a service running on Kubernetes. You need to:
-
-* Create a cluster (in the us-east1-b zone) to host the service.
-* Use the Docker container hello-app (`gcr.io/google-samples/hello-app:2.0`) as a place holder; the team will replace the container with their own work later.
-* Expose the app on port `App port` number.
-
-__Answer__
 ```bash
 # set a default compute zone
 gcloud config set compute/zone us-east1-b
@@ -120,31 +102,6 @@ curl http://[EXTERNAL-IP]:8080
 ```
 
 ## Task 3. Set up an HTTP load balancer
-You will serve the site via nginx web servers, but you want to ensure that the environment is fault-tolerant. Create an HTTP load balancer with a managed instance group of `2 nginx web servers`. Use the following code to configure the web servers; the team will replace this with their own configuration later.
-
-> Note: There is a limit to the resources you are allowed to create in your project, so do not create more than 2 instances in your managed instance group. If you do, the lab might end and you might be banned.
-
-```bash
-cat << EOF > startup.sh
-#! /bin/bash
-apt-get update
-apt-get install -y nginx
-service nginx start
-sed -i -- 's/nginx/Google Cloud Platform - '"\$HOSTNAME"'/' /var/www/html/index.nginx-debian.html
-EOF
-```
-
-You need to:
-* Create an instance template.
-* Create a target pool.
-* Create a managed instance group.
-* Create a firewall rule named as Firewall rule to allow traffic (80/tcp).
-* Create a health check.
-* Create a backend service, and attach the managed instance group with named port (http:80).
-* Create a URL map, and target the HTTP proxy to route requests to your URL map.
-* Create a forwarding rule.
-
-__Answer__
 ```bash
 # save file for startup-script
 cat << EOF > startup.sh
@@ -211,3 +168,4 @@ gcloud compute forwarding-rules list
 
 ## References
 https://mayankchourasia2.medium.com/getting-started-create-and-manage-cloud-resources-challenge-lab-6aade9186bdd
+https://github.com/GDSC-IIIT-Kalyani/qwiklabs_challenges/blob/master/Getting%20Started:%20Create%20and%20Manage%20Cloud%20Resources:%20Challenge%20Lab.md
