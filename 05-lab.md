@@ -359,7 +359,6 @@ python subscriber.py $GOOGLE_CLOUD_PROJECT receive MySub
 
 Click Ctrl+c to stop listening.
 
-----
 ## Test your understanding
 1. Google Cloud Pub/Sub service allows applications to exchange messages reliably, quickly, and asynchronously.
 - [x] True
@@ -369,5 +368,3 @@ Click Ctrl+c to stop listening.
 - [ ] subscription
 - [ ] message
 - [x] topic
-
-----

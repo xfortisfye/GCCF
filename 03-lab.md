@@ -15,7 +15,7 @@ Compute Engine (IaaS) lets you create virtual machines that run different operat
 3. There are many parameters you can configure when creating a new instance. Use the following for this lab:
 
 | Field | Value | Additional Information  
-| ----- | ----- | -----|
+| ---- | ---- | ---- |
 | Name | gcevalue | Name for VM instance |
 | Region | us-central1 (Iowa) | For more information about regions, see Regions and Zones. |
 | Zone | us-central1-f | Note: Remember the zone that you selected: you'll need it later. For more information about zones, see Regions and Zones. |
@@ -29,7 +29,6 @@ Compute Engine (IaaS) lets you create virtual machines that run different operat
 
 5. To use SSH to connect to the virtual machine, in the row for your machine, click SSH.
 
-----
 ## Task 2: Install an NGINX web server
 1. Get root access in the SSH terminal
 ```bash
@@ -53,7 +52,6 @@ ps auwx | grep nginx
 
 5. See the web page by returning to the Cloud Console and click the External IP link in the row for your machine, or add the External IP value to http://EXTERNAL_IP/ in a new browser window or tab.
 
-----
 ## Task 3: Create a new instance with gcloud
 Instead of using the Cloud Console to create a virtual machine instance, you can use the command line tool gcloud, which is pre-installed in Google Cloud Shell. Cloud Shell is a Debian-based virtual machine loaded with all the development tools you'll need (gcloud, git, and others) and offers a persistent 5-GB home directory.
 
@@ -122,7 +120,6 @@ Enter passphrase (empty for no passphrase)
 exit
 ```
 
-----
 ## Test your understanding
 1. Through which of the following ways can you create a VM instance in Compute Engine?
 - [x] The gcloud command line tool
@@ -155,7 +152,6 @@ The App Engine Admin API enables developers to provision and manage their App En
 
 4. Click Enable. If there is no prompt to enable the API, then it is already enabled and no action is needed.
 
-----
 ## Download the Hello World app
 1. Enter the following command to copy the Hello World sample app repository to your Google Cloud instance:
 ```bash
@@ -167,7 +163,6 @@ git clone https://github.com/GoogleCloudPlatform/python-docs-samples.git
 cd python-docs-samples/appengine/standard_python3/hello_world
 ```
 
-----
 ## Test the application
 Test the application using the Google Cloud development server (dev_appserver.py), which is included with the preinstalled App Engine SDK.
 
@@ -179,7 +174,6 @@ dev_appserver.py app.yaml
 
 2. View the results by clicking the Web preview > Preview on port 8080
 
-----
 ## Make a change
 You can leave the development server running while you develop your application. The development server watches for changes in your source files and reloads them if necessary.
 
@@ -201,7 +195,6 @@ nano main.py
 
 5. Reload the Hello World! Browser or click the Web Preview > Preview on port 8080 to see the results.
 
-----
 ## Deploy your app
 1. To deploy your app to App Engine, run the following command from within the root directory of your application where the app.yaml file is located:
 ```bash
@@ -273,7 +266,6 @@ To view your application in the web browser run:
 
 > Note: If you receive an error as "Unable to retrieve P4SA" while deploying the app, then re-run the above command.
 
-----
 ## View your application
 
 1. To launch your browser enter the following command, then click on the link it provides.
@@ -286,7 +278,6 @@ gcloud app browse
 Did not detect your browser. Go to this link to view your app:
 https://qwiklabs-gcp-233dca09c0ab577b.appspot.com
 
-----
 ## Test your knowledge
 
 1. Container instances running on Google's infrastructure are preconfigured with which of the several available runtimes?
@@ -370,7 +361,6 @@ console.log(`My Cloud Function: ${name}`);
 
 5. Exit nano (Ctrl+x) and save (Y) the file.
 
-----
 ## Create a cloud storage bucket
 1. Create a new cloud storage bucket for function
 ```bash
@@ -379,7 +369,6 @@ gsutil mb -p [PROJECT_ID] gs://[BUCKET_NAME]
 * PROJECT_ID is the Project ID in the connection details of this lab
 * BUCKET_NAME is the name you give to the bucket. It must be a globally unique name. For more information, see Bucket naming guidelines.
 
-----
 ## Deploy your function
 When deploying a new function, you must specify `--trigger-topic`, `--trigger-bucket`, or `--trigger-http`. When deploying an update to an existing function, the function keeps the existing trigger unless otherwise specified.
 
@@ -402,7 +391,6 @@ gcloud functions describe helloWorld
 > Note: An ACTIVE status indicates that the function has been deployed.
 > * Every message published in the topic triggers function execution, the message contents are passed as input data.
 
-----
 ## Test the function
 1. After you deploy the function and know that it's active, test that the function writes a message to the cloud log after detecting an event.
 ```bash
@@ -413,7 +401,6 @@ DATA=$(printf 'Hello World!'|base64) && gcloud functions call helloWorld --data 
 
 3. View logs to confirm that there are log messages with that execution ID.
 
-----
 ## View logs
 Check the logs to see messages in the log history
 ```bash
@@ -429,7 +416,6 @@ D      helloWorld  3zmhpf7l6j5b  2017-12-05 22:17:42.666  Function execution too
 ```
 > Note: The logs will take around 10 mins to appear. Also, the alternative way to view the logs is, go to Logging > Logs Explorer.
 
-----
 ## Test your Understanding
 1. Serverless lets you write and deploy code without the hassle of managing the underlying infrastructure.
 - [x] True
@@ -466,7 +452,6 @@ gcloud config set compute/zone us-central1-a
 Updated property [compute/zone].
 ```
 
-----
 ## Task 2: Create a GKE cluster
 A cluster consists of at least one cluster master machine and multiple worker machines called nodes. Nodes are Compute Engine virtual machine (VM) instances that run the Kubernetes processes necessary to make them part of the cluster.
 > Note: Cluster names must start with a letter and end with an alphanumeric, and cannot be longer than 40 characters.
@@ -489,7 +474,6 @@ NUM_NODES: 3
 STATUS: RUNNING
 ```
 
-----
 ## Task 3: Get authentication credentials for the cluster
 After creating your cluster, you need authentication credentials to interact with it.
 
@@ -498,11 +482,12 @@ To authenticate the cluster, run the following command, replacing [CLUSTER-NAME]
 gcloud container clusters get-credentials [CLUSTER-NAME]
 ```
 **Expected output:**
-Expected output:
 
+```bash
+Fetching cluster endpoint and auth data.
+kubeconfig entry generated for my-cluster.
+```
 
-
-----
 ## Task 4: Deploy an application to the cluster
 You can now deploy a containerized application to the cluster. For this lab, you'll run hello-app in your cluster.
 
@@ -548,7 +533,6 @@ kubernetes        ClusterIP         10.39.240.1                  433/TCP        
 http://[EXTERNAL-IP]:8080
 ```
 
-----
 ## Task 5: Deleting the cluster
 1. Delete the cluster
 ```bash

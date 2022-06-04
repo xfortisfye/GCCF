@@ -20,7 +20,7 @@ gcloud is the command-line tool for Google Cloud. It comes pre-installed on Clou
     ```bash
     gcloud config list project
     ```
-----
+    
 ## Task 1: Configure your environment
 In this section, you'll learn about aspects of the development environment that you can adjust.
 
@@ -156,7 +156,6 @@ gcloud config list --all
 gcloud components list
 ```
 
-----
 ## Task 2: Filtering command line output
 The gcloud CLI is a powerful tool for working at the command line. You may want specific information to be displayed.
 
@@ -225,7 +224,6 @@ default-allow-icmp           default      INGRESS    65534     icmp             
 default-allow-internal       default      INGRESS    65534     tcp:0-65535,udp:0-65535,icmp        False
 ```
 
-----
 ## Task 3: Connect to your VM instance
 `gcloud compute` makes connecting to your instances easy. The `gcloud compute ssh` command provides a wrapper around SSH, which takes care of authentication and the mapping of instance names to IP addresses.
 
@@ -269,7 +267,6 @@ exit
 ```
 You should be back at your project's command prompt.
 
-----
 ## Task 4: Updating the Firewall
 When using compute resources such as virtual machines, it's important to understand the associated firewall rules.
 
@@ -324,7 +321,6 @@ curl http://$(gcloud compute instances list --filter=name:gcelab2 --format='valu
 ```
 You will see the default nginx output.
 
-----
 ## Task 5. Viewing the system logs
 Viewing logs is essential to understanding the working of your project. Use gcloud to access the different logs available on Google Cloud.
 
@@ -371,7 +367,6 @@ gcloud logging read "resource.type=gce_instance" --limit 5
 gcloud logging read "resource.type=gce_instance AND labels.instance_name='gcelab2'" --limit 5
 ```
 
-----
 ## Test your understanding
 1. Three basic ways to interact with Google Cloud services and resources are:
 - [ ] GStreamer

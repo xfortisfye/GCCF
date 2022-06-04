@@ -100,7 +100,7 @@ You can open that same URL from any computer connected to the Internet to see th
 6. Fill in the required blanks with appropriate values:
 
 | Field  | Value |
-| ----- | ----- |
+| ---- | ---- |
 | App name | IAP Example |
 | User support email | Select your Qwiklabs student email address from the dropdown. | 
 | Application home page | The URL you used to view your app. You can find this again by running the gcloud app browse command in cloud shell again. |
@@ -363,7 +363,7 @@ These are primitive roles in Google Cloud. Primitive roles set project-level per
 The following table pulls definitions from the Google Cloud IAM article, Basic roles, which gives a brief overview of browser, viewer, editor, and owner role permissions:
 
 | Role Name | Permissions |
-| ----- | ----- |
+| ---- | ---- |
 | roles/viewer | Permissions for read-only actions that do not affect state, such as viewing (but not modifying) existing resources or data. |
 | roles/editor | All viewer permissions, plus permissions for actions that modify state, such as changing existing resources. |
 | roles/owner | All editor permissions and permissions for the following actions: * Manage roles and permissions for a project and all resources within the project.* Set up billing for a project. |
@@ -401,7 +401,7 @@ Ensure that you are in the Username 1 Cloud Console.
 3. Update the following fields, leave all others at their default values:
 
 | Property | Value | 
-| ----- | ----- |
+| ---- | ---- |
 | Name: | globally unique name (create it yourself!) and click CONTINUE. |
 | Location Type: | Multi-Region |
 
@@ -489,7 +489,6 @@ gs://[YOUR_BUCKET_NAME]/sample.txt
 
 4. As you can see, you gave Username 2 view access to the Cloud Storage bucket.
 
-----
 ## Test your understanding
 1. Google Cloud Pub/Sub service allows applications to exchange messages reliably, quickly, and asynchronously.
 - [x] True
@@ -499,5 +498,3 @@ gs://[YOUR_BUCKET_NAME]/sample.txt
 - [x] subscription
 - [x] message
 - [x] topic
-
-----
