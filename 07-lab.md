@@ -6,6 +6,8 @@
 ## Overview 
 In this lab you create several VPC networks and VM instances and test connectivity across networks. Specifically, you create two custom mode networks (managementnet and privatenet) with firewall rules and VM instances as shown in this network diagram
 
+https://cdn.qwiklabs.com/OBtRY37ZCmWiHi%2FHsG8XCSGDBfsuKk3IMJVgQscsg2E%3D
+
 The mynetwork network with its firewall rules and two VM instances (mynet-eu-vm and mynet-us-vm) have already been created for you in this Qwiklabs project.
 
 ## Create custom mode VPC networks with firewall rules
@@ -14,7 +16,7 @@ Create two custom networks managementnet and privatenet, along with firewall rul
 ### Create the managementnet network
 Create the managementnet network using the Cloud Console.
 
-1. In the Cloud Console, navigate to Navigation menu (mainmenu.png) > VPC network > VPC networks.
+1. In the Cloud Console, navigate to Navigation menu > VPC network > VPC networks.
 2. Notice the default and mynetwork networks with their subnets. Each Google Cloud project starts with the default network. In addition, the mynetwork network has been premade as part of your network diagram.
 3. Click Create VPC Network.
 4. Set the Name to managementnet.
@@ -31,6 +33,14 @@ Create the managementnet network using the Cloud Console.
 8. Click EQUIVALENT COMMAND LINE.
 
 These commands illustrate that networks and subnets can be created using the Cloud Shell command line. You will create the privatenet network using these commands with similar parameters.
+
+```bash
+gcloud compute networks create managementnet --project=qwiklabs-gcp-00-c83ea62b7aca --subnet-mode=custom --mtu=1460 --bgp-routing-mode=regional
+```
+
+```bash
+gcloud compute networks subnets create managementsubnet-us --project=qwiklabs-gcp-00-c83ea62b7aca --range=10.130.0.0/20 --stack-type=IPV4_ONLY --network=managementnet --region=us-central1
+```
 
 9. Click Close.
 
@@ -73,7 +83,9 @@ privatenet     CUSTOM       REGIONAL
 
 5. Run the following command to list the available VPC subnets (sorted by VPC network):
 
+```bash
 gcloud compute networks subnets list --sort-by=NETWORK
+```
 
 The output should look like this (do not copy; this is example output):
 
@@ -124,7 +136,7 @@ privatesubnet-us    us-central1              privatenet     172.16.0.0/24
 ### Create the firewall rules for managementnet
 Create firewall rules to allow SSH, ICMP, and RDP ingress traffic to VM instances on the managementnet network.
 
-1. In the Cloud Console, navigate to Navigation menu (mainmenu.png) > VPC network > Firewall.
+1. In the Cloud Console, navigate to Navigation Menu > VPC network > Firewall.
 
 2. Click + Create Firewall Rule.
 
@@ -142,6 +154,10 @@ Create firewall rules to allow SSH, ICMP, and RDP ingress traffic to VM instance
 4. Click EQUIVALENT COMMAND LINE.
 
 These commands illustrate that firewall rules can also be created using the Cloud Shell command line. You will create the privatenet's firewall rules using these commands with similar parameters.
+
+```bash
+gcloud compute --project=qwiklabs-gcp-00-c83ea62b7aca firewall-rules create managementnet-allow-icmp-ssh-rdp --direction=INGRESS --priority=1000 --network=managementnet --action=ALLOW --rules=tcp:22,tcp:3389,icmp --source-ranges=0.0.0.0/0
+```
 
 5. Click Close.
 
@@ -192,12 +208,10 @@ The firewall rules for mynetwork network have been created for you. You can defi
 
 ## Create VM instances
 Create two VM instances:
+- managementnet-us-vm in managementsubnet-us
+- privatenet-us-vm in privatesubnet-us
 
-managementnet-us-vm in managementsubnet-us
-
-privatenet-us-vm in privatesubnet-us
-
-Create the managementnet-us-vm instance
+### Create the managementnet-us-vm instance
 Create the managementnet-us-vm instance using the Cloud Console.
 
 1. In the Cloud Console, navigate to Navigation menu > Compute Engine > VM instances.
@@ -230,6 +244,10 @@ The mynet-eu-vm and mynet-us-vm has been created for you, as part of your networ
 9. Click EQUIVALENT COMMAND LINE.
 
 This illustrate that VM instances can also be created using the Cloud Shell command line. You will create the privatenet-us-vm instance using these commands with similar parameters.
+
+```bash
+gcloud compute instances create managementnet-us-vm --project=qwiklabs-gcp-00-c83ea62b7aca --zone=us-central1-f --machine-type=f1-micro --network-interface=network-tier=PREMIUM,subnet=managementsubnet-us --metadata=enable-oslogin=true --maintenance-policy=MIGRATE --provisioning-model=STANDARD --service-account=17523071719-compute@developer.gserviceaccount.com --scopes=https://www.googleapis.com/auth/devstorage.read_only,https://www.googleapis.com/auth/logging.write,https://www.googleapis.com/auth/monitoring.write,https://www.googleapis.com/auth/servicecontrol,https://www.googleapis.com/auth/service.management.readonly,https://www.googleapis.com/auth/trace.append --create-disk=auto-delete=yes,boot=yes,device-name=managementnet-us-vm,image=projects/debian-cloud/global/images/debian-11-bullseye-v20220519,mode=rw,size=10,type=projects/qwiklabs-gcp-00-c83ea62b7aca/zones/us-central1-f/diskTypes/pd-balanced --no-shielded-secure-boot --shielded-vtpm --shielded-integrity-monitoring --reservation-affinity=any
+```
 
 10. Click Close.
 11. Click Create.
@@ -266,7 +284,7 @@ mynet-us-vm          us-central1-f   n1-standard-1               10.128.0.2   35
 privatenet-us-vm     us-central1-f   n1-standard-1               172.16.0.2   35.184.221.40   RUNNING
 ```
 
-3. In the Cloud Console, navigate to Navigation menu (mainmenu.png) > Compute Engine > VM instances.
+3. In the Cloud Console, navigate to Navigation Menu > Compute Engine > VM instances.
 
 4. You see that the VM instances are listed in the Cloud Console.
 
@@ -290,6 +308,15 @@ Ping the external IP addresses of the VM instances to determine if you can reach
 
 ```bash
 ping -c 3 <Enter mynet-eu-vm's external IP here>
+
+# PING x.x.x.x (x.x.x.x) 56(84) bytes of data.
+# 64 bytes from x.x.x.x: icmp_seq=1 ttl=51 time=103 ms
+# 64 bytes from x.x.x.x: icmp_seq=2 ttl=51 time=103 ms
+# 64 bytes from x.x.x.x: icmp_seq=3 ttl=51 time=103 ms
+#
+# --- x.x.x.x ping statistics ---
+# 3 packets transmitted, 3 received, 0% packet loss, time 2003ms
+# rtt min/avg/max/mdev = 1.404/1.506/1.646/0.107 ms
 ```
 
 This should work!
@@ -298,6 +325,15 @@ This should work!
 
 ```bash
 ping -c 3 <Enter managementnet-us-vm's external IP here>
+
+# PING x.x.x.x (x.x.x.x) 56(84) bytes of data.
+# 64 bytes from x.x.x.x: icmp_seq=1 ttl=61 time=1.46 ms
+# 64 bytes from x.x.x.x: icmp_seq=2 ttl=61 time=1.40 ms
+# 64 bytes from x.x.x.x: icmp_seq=3 ttl=61 time=1.64 ms
+# 
+# --- x.x.x.x ping statistics ---
+# 3 packets transmitted, 3 received, 0% packet loss, time 2003ms
+# rtt min/avg/max/mdev = 1.322/1.386/1.480/0.080 ms
 ```
 This should work!
 
@@ -305,6 +341,15 @@ This should work!
 
 ```bash
 ping -c 3 <Enter privatenet-us-vm's external IP here>
+
+# PING  x.x.x.x (x.x.x.x) 56(84) bytes of data.
+# 64 bytes from x.x.x.x: icmp_seq=1 ttl=64 time=1.35 ms
+# 64 bytes from x.x.x.x: icmp_seq=2 ttl=64 time=1.32 ms
+# 64 bytes from x.x.x.x: icmp_seq=3 ttl=64 time=1.48 ms
+
+# --- x.x.x.x ping statistics ---
+# 3 packets transmitted, 3 received, 0% packet loss, time 2003ms
+# rtt min/avg/max/mdev = 1.322/1.386/1.480/0.080 ms
 ```
 
 This should work!
@@ -321,6 +366,15 @@ Ping the internal IP addresses of the VM instances to determine if you can reach
 
 ```bash
 ping -c 3 <Enter mynet-eu-vm's internal IP here>
+
+PING x.x.x.x (x.x.x.x) 56(84) bytes of data.
+64 bytes from x.x.x.x: icmp_seq=1 ttl=64 time=110 ms
+64 bytes from x.x.x.x: icmp_seq=2 ttl=64 time=109 ms
+64 bytes from x.x.x.x: icmp_seq=3 ttl=64 time=109 ms
+
+# --- x.x.x.x ping statistics ---
+# 3 packets transmitted, 3 received, 0% packet loss, time 2003ms
+# rtt min/avg/max/mdev = 109.170/109.615/110.440/0.583 ms
 ```
 
 > You are able to ping the internal IP address of mynet-eu-vm because it is on the same VPC network as the source of the ping (mynet-us-vm), even though both VM instances are in separate zones, regions and continents!
@@ -329,6 +383,11 @@ ping -c 3 <Enter mynet-eu-vm's internal IP here>
 
 ```bash
 ping -c 3 <Enter managementnet-us-vm's internal IP here>
+
+# PING x.x.x.x (x.x.x.x) 56(84) bytes of data.
+#
+# --- x.x.x.x ping statistics ---
+# 3 packets transmitted, 0 received, 100% packet loss, time 2027ms
 ```
 
 > This should not work as indicated by a 100% packet loss!
@@ -337,6 +396,11 @@ ping -c 3 <Enter managementnet-us-vm's internal IP here>
 
 ```bash
 ping -c 3 <Enter privatenet-us-vm's internal IP here>
+
+# PING x.x.x.x (x.x.x.x) 56(84) bytes of data.
+#
+# --- x.x.x.x ping statistics ---
+# 3 packets transmitted, 0 received, 100% packet loss, time 2038ms
 ```
 
 > This should not work either as indicated by a 100% packet loss! You are unable to ping the internal IP address of managementnet-us-vm and privatenet-us-vm because they are in separate VPC networks from the source of the ping (mynet-us-vm), even though they are all in the same zone us-central1.
@@ -345,8 +409,8 @@ VPC networks are by default isolated private networking domains. However, no int
 
 1. Which instance(s) should you be able to ping from mynet-us-vm using internal IP addresses?
 - [x] managementnet-us-vm
-- [x] mynet-eu-vm
-- [x] privatenet-us-vm
+- [ ] mynet-eu-vm
+- [ ] privatenet-us-vm
 
 ## Create a VM instance with multiple network interfaces
 Every instance in a VPC network has a default network interface. You can create additional network interfaces attached to your VMs. Multiple network interfaces enable you to create configurations in which an instance connects directly to several VPC networks (up to 8 interfaces, depending on the instance's type).
@@ -401,7 +465,7 @@ Create the vm-appliance instance with network interfaces in privatesubnet-us, ma
 ### Explore the network interface details
 Explore the network interface details of vm-appliance within the Cloud Console and within the VM's terminal.
 
-1. In the Cloud Console, navigate to Navigation menu (mainmenu.png) > Compute Engine > VM instances.
+1. In the Cloud Console, navigate to Navigation Menu > Compute Engine > VM instances.
 2. Click nic0 within the Internal IP address of vm-appliance to open the Network interface details page.
 3. Verify that nic0 is attached to privatesubnet-us, is assigned an internal IP address within that subnet (172.16.0.0/24), and has applicable firewall rules.
 4. Click nic0 and select nic1.
@@ -462,6 +526,16 @@ Demonstrate that the vm-appliance instance is connected to privatesubnet-us, man
 
 ```bash
 ping -c 3 <Enter privatenet-us-vm's internal IP here>
+
+# PING 172.16.0.2 (172.16.0.2) 56(84) bytes of data.
+# 64 bytes from 172.16.0.2: icmp_seq=1 ttl=64 time=0.971 ms
+
+# 64 bytes from 172.16.0.2: icmp_seq=2 ttl=64 time=0.194 ms
+# 64 bytes from 172.16.0.2: icmp_seq=3 ttl=64 time=0.231 ms
+
+# --- 172.16.0.2 ping statistics ---
+# 3 packets transmitted, 3 received, 0% packet loss, time 2026ms
+# rtt min/avg/max/mdev = 0.194/0.465/0.971/0.357 ms
 ```
 This works!
 
@@ -469,6 +543,15 @@ Repeat the same test by running the following:
 
 ```bash
 ping -c 3 privatenet-us-vm
+
+# PING privatenet-us-vm.us-central1-f.c.qwiklabs-gcp-00-c83ea62b7aca.internal (172.16.0.2) 56(84) bytes of data.
+# 64 bytes from privatenet-us-vm.us-central1-f.c.qwiklabs-gcp-00-c83ea62b7aca.internal (172.16.0.2): icmp_seq=1 ttl=64 time=1.14 ms
+# 64 bytes from privatenet-us-vm.us-central1-f.c.qwiklabs-gcp-00-c83ea62b7aca.internal (172.16.0.2): icmp_seq=2 ttl=64 time=0.171 ms
+# 64 bytes from privatenet-us-vm.us-central1-f.c.qwiklabs-gcp-00-c83ea62b7aca.internal (172.16.0.2): icmp_seq=3 ttl=64 time=0.201 ms
+
+# --- privatenet-us-vm.us-central1-f.c.qwiklabs-gcp-00-c83ea62b7aca.internal ping statistics ---
+# 3 packets transmitted, 3 received, 0% packet loss, time 2003ms
+# rtt min/avg/max/mdev = 0.171/0.504/1.141/0.450 ms
 ```
 
 > You are able to ping privatenet-us-vm by its name because VPC networks have an internal DNS service that allows you to address instances by their DNS names rather than their internal IP addresses. When an internal DNS query is made with the instance hostname, it resolves to the primary interface (nic0) of the instance. Therefore, this only works for privatenet-us-vm in this case.
@@ -477,6 +560,15 @@ ping -c 3 privatenet-us-vm
 
 ```bash
 ping -c 3 <Enter managementnet-us-vm's internal IP here>
+
+# PING 10.130.0.2 (10.130.0.2) 56(84) bytes of data.
+# 64 bytes from 10.130.0.2: icmp_seq=1 ttl=64 time=1.46 ms
+# 64 bytes from 10.130.0.2: icmp_seq=2 ttl=64 time=0.259 ms
+# 64 bytes from 10.130.0.2: icmp_seq=3 ttl=64 time=0.174 ms
+# 
+# --- 10.130.0.2 ping statistics ---
+# 3 packets transmitted, 3 received, 0% packet loss, time 2005ms
+# rtt min/avg/max/mdev = 0.174/0.631/1.462/0.588 ms
 ```
 This works!
 
@@ -484,6 +576,15 @@ This works!
 
 ```bash
 ping -c 3 <Enter mynet-us-vm's internal IP here>
+
+# PING 10.128.0.2 (10.128.0.2) 56(84) bytes of data.
+# 64 bytes from 10.128.0.2: icmp_seq=1 ttl=64 time=1.88 ms
+# 64 bytes from 10.128.0.2: icmp_seq=2 ttl=64 time=0.227 ms
+# 64 bytes from 10.128.0.2: icmp_seq=3 ttl=64 time=0.227 ms
+#
+# --- 10.128.0.2 ping statistics ---
+# 3 packets transmitted, 3 received, 0% packet loss, time 2005ms
+# rtt min/avg/max/mdev = 0.227/0.776/1.876/0.777 ms
 ```
 This works!
 
@@ -491,6 +592,11 @@ This works!
 
 ```bash
 ping -c 3 <Enter mynet-eu-vm's internal IP here>
+
+# PING 10.164.0.2 (10.164.0.2) 56(84) bytes of data.
+#
+# --- 10.164.0.2 ping statistics ---
+# 3 packets transmitted, 0 received, 100% packet loss, time 2025ms
 ```
 
 > This does not work! In a multiple interface instance, every interface gets a route for the subnet that it is in. In addition, the instance gets a single default route that is associated with the primary interface eth0. Unless manually configured otherwise, any traffic leaving an instance for any destination other than a directly connected subnet will leave the instance via the default route on eth0.
@@ -525,7 +631,7 @@ Create two web servers (blue and green) in the default VPC network. Then, instal
 
 ### Create the blue server with a network tag.
 
-1. In the Console, navigate to Navigation menu (mainmenu.png) > Compute Engine > VM instances.
+1. In the Console, navigate to Navigation Menu > Compute Engine > VM instances.
 
 2. Click Create Instance.
 
@@ -653,12 +759,13 @@ Create the tagged firewall rule and test HTTP connectivity.
 ### Create the tagged firewall rule
 Create a firewall rule that applies to VM instances with the web-server network tag.
 
-1. In the Console, navigate to Navigation menu (mainmenu.png) > VPC network > Firewall.
+1. In the Console, navigate to Navigation Menu > VPC network > Firewall.
 
 2. Notice the default-allow-internal firewall rule.
 
 > The default-allow-internal firewall rule allows traffic on all protocols/ports within the default network. You want to create a firewall rule to allow traffic from outside this network to only the blue server, by using the network tag web-server.
-Click Create Firewall Rule.
+
+3. Click Create Firewall Rule.
 
 4. Set the following values, leave all other values at their defaults and click Create:
 
@@ -697,7 +804,7 @@ You can easily create VM instances from the Console or the gcloud command line.
 ### Test HTTP connectivity
 From test-vm curl the internal and external IP addresses of blue and green.
 
-1. In the Console, navigate to Navigation menu (mainmenu.png) > Compute Engine > VM instances.
+1. In the Console, navigate to Navigation Menu > Compute Engine > VM instances.
 
 2. Note the internal and external IP addresses of blue and green.
 
@@ -795,7 +902,7 @@ ERROR: (gcloud.compute.firewall-rules.delete) Could not fetch resource:
 ### Create a service account
 Create a service account and apply the Network Admin role.
 
-1. In the Console, navigate to Navigation menu (mainmenu.png) > IAM & admin > Service Accounts.
+1. In the Console, navigate to Navigation Menu > IAM & admin > Service Accounts.
 
 2. Notice the Compute Engine default service account.
 
@@ -817,11 +924,11 @@ A JSON key file download to your local computer. Find this key file, you will up
 Authorize test-vm to use the Network-admin service account.
 
 The Network Admin role provides permissions to:
-- [ ] Modify the available firewall rules
-- [ ] Neither list, create, modify, or delete the available firewall rules
-- [ ] Delete the available firewall rules
 - [ ] Create a firewall rules
-- [ ] List the available firewall rules
+- [x] List the available firewall rules
+- [ ] Modify the available firewall rules
+- [ ] Delete the available firewall rules
+- [ ] Neither list, create, modify, or delete the available firewall rules
 
 1. Return to the SSH terminal of the test-vm instance.
 
@@ -880,13 +987,13 @@ ERROR: (gcloud.compute.firewall-rules.delete) Could not fetch resource:
 Update the Network-admin service account by providing it the Security Admin role.
 
 The Security Admin role, provides permissions to:
-- [ ] Create a firewall rules
-- [ ] List the available firewall rules
+- [x] Create a firewall rules
+- [x] List the available firewall rules
+- [x] Modify the available firewall rules
+- [x] Delete the available firewall rules
 - [ ] Neither list, create, modify, or delete the available firewall rules
-- [ ] Delete the available firewall rules
-- [ ] Modify the available firewall rules
 
-1. In the Console, navigate to Navigation menu (mainmenu.png) > IAM & admin > IAM.
+1. In the Console, navigate to Navigation Menu > IAM & admin > IAM.
 
 2. Find the Network-admin account. Focus on the Name column to identify this account.
 
@@ -963,7 +1070,7 @@ Configure firewall rules to allow HTTP traffic to the backends and TCP traffic f
 ### Create the HTTP firewall rule
 Create a firewall rule to allow HTTP traffic to the backends.
 
-1. In the Cloud Console, navigate to Navigation menu (mainmenu.png) > VPC network > Firewall.
+1. In the Cloud Console, navigate to Navigation menu > VPC network > Firewall.
 
 2. Notice the existing ICMP, internal, RDP, and SSH firewall rules.
 
@@ -1012,14 +1119,13 @@ A managed instance group uses an instance template to create a group of identica
 ### Configure the instance templates
 An instance template is an API resource that you use to create VM instances and managed instance groups. Instance templates define the machine type, boot disk image, subnet, labels, and other instance properties. Create one instance template for us-east1 and one for europe-west1.
 
-1. In the Cloud Console, navigate to Navigation menu (mainmenu.png) > Compute Engine > Instance templates, and then click Create instance template.
+1. In the Cloud Console, navigate to Navigation menu > Compute Engine > Instance templates, and then click Create instance template.
 
 2. For Name, type us-east1-template.
 
 3. For Series, select N1.
 
 4. Click NETWORKING, DISKS, SECURITY, MANAGEMENT, SOLE-TENANCY.
-instance_template-1.png
 
 5. Click the Management tab.
 
@@ -1039,6 +1145,7 @@ instance_template-1.png
 | Network tags | http-server |
 | Network | default |
 | Subnetwork | default (us-east1) |
+
 Click Done.
 
 > The network tag http-server ensures that the HTTP and Health Check firewall rules apply to these instances.
@@ -1127,15 +1234,15 @@ You should see the Client IP (your IP address), the Hostname (starts with europe
 > The Hostname and Server Location identifies where the HTTP Load Balancer sends traffic.
 
 Which of these fields identify the region of the backend?
-- [ ] Hostname
-- [ ] Server Location
+- [x] Hostname
+- [x] Server Location
 - [ ] Client IP
 
 ## Configure the HTTP Load Balancer
 Configure the HTTP Load Balancer to balance traffic between the two backends (us-east1-mig in us-east1 and europe-west1-mig in europe-west1), as illustrated in the network diagram:
 
 ### Start the configuration
-1. In the Cloud Console, click Navigation menu (mainmenu.png) > click Network Services > Load balancing, and then click Create load balancer.
+1. In the Cloud Console, click Navigation menu > click Network Services > Load balancing, and then click Create load balancer.
 
 2. Under HTTP(S) Load Balancing, click on Start configuration.
 
@@ -1221,6 +1328,7 @@ The host and path rules determine how your traffic will be directed. For example
 5. Specify the following, leaving all other values at their defaults:
 
 | Property | Value (type value or select option as specified) |
+| ---- | ---- |
 | Protocol | HTTP |
 | IP version | IPv6 |
 | IP address | Ephemeral |
@@ -1249,7 +1357,7 @@ The host and path rules determine how your traffic will be directed. For example
 Now that you created the HTTP Load Balancer for your backends, verify that traffic is forwarded to the backend service.
 
 The HTTP load balancer should forward traffic to the region that is closest to you.
-- [ ] True
+- [x] True
 - [ ] False
 
 ### Access the HTTP Load Balancer
@@ -1264,7 +1372,7 @@ If you have a local IPv6 address, try the IPv6 address of the HTTP Load Balancer
 ### Stress test the HTTP Load Balancer
 Create a new VM to simulate a load on the HTTP Load Balancer using siege. Then, determine if traffic is balanced across both backends when the load is high.
 
-1. In the Console, navigate to Navigation menu (mainmenu.png) > Compute Engine > VM instances.
+1. In the Console, navigate to Navigation Menu > Compute Engine > VM instances.
 
 2. Click Create instance.
 
@@ -1313,7 +1421,7 @@ Run siege -C to view the current settings in that file
 The server is now under siege...
 ```
 
-10. In the Cloud Console, on the Navigation menu (mainmenu.png), click Network Services > Load balancing.
+10. In the Cloud Console, on the Navigation menu, click Network Services > Load balancing.
 
 11. Click Backends.
 
@@ -1339,7 +1447,7 @@ Use Cloud Armor to denylist the siege-vm from accessing the HTTP Load Balancer.
 ### Create the security policy
 Create a Cloud Armor security policy with a denylist rule for the siege-vm.
 
-1. In the Console, navigate to Navigation menu (mainmenu.png) > Compute Engine > VM instances.
+1. In the Console, navigate to Navigation menu > Compute Engine > VM instances.
 
 2. Note the External IP of the siege-vm. This will be referred to as [SIEGE_IP].
 
@@ -1458,6 +1566,8 @@ Google Cloud offers Internal Load Balancing for your TCP/UDP-based traffic. Inte
 
 In this lab you create two managed instance groups in the same region. Then, you configure and test an Internal Load Balancer with the instances groups as the backends, as shown in this network diagram:
 
+https://cdn.qwiklabs.com/k3u04mphJhk%2F2yM84NjgPiZHrbCuzbdwAQ98vnaoHQo%3D
+
 ## Configure HTTP and health check firewall rules
 Configure firewall rules to allow HTTP traffic to the backends and TCP traffic from the Google Cloud health checker.
 
@@ -1532,7 +1642,6 @@ An instance template is an API resource that you can use to create VM instances 
 4. For Series, select N1.
 
 5. Click Networking, disks, security, management, sole tenancy.
-advance-options.png
 
 6. Click Networking.
 
@@ -1555,7 +1664,9 @@ advance-options.png
 12. Under Metadata, click Add item and specify the following:
 
 | Key | Value |
+| ---- | ---- |
 | startup-script-url | gs://cloud-training/gcpnet/ilb/startup.sh |
+
 > The startup-script-url specifies a script that will be executed when instances are started. This script installs Apache and changes the welcome page to include the client IP and the name, region and zone of the VM instance. Feel free to explore this script here.
 
 13. Click Create.
@@ -1692,8 +1803,8 @@ The output should look like this (example output):
 
 Which of these fields identify the location of the backend?
 - [ ] Client IP
-- [ ] Server Location
-- [ ] Server Hostname
+- [x] Server Location
+- [x] Server Hostname
 
 > The curl commands demonstrate that each VM instance lists the Client IP and its own name and location. This will be useful when verifying that the Internal Load Balancer sends traffic to both backends.
 
