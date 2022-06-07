@@ -4,6 +4,9 @@
 # Lab 08-01: Cloud Monitoring: Qwik Start
 
 ## Overview 
+Cloud Monitoring provides visibility into the performance, uptime, and overall health of cloud-powered applications. Cloud Monitoring collects metrics, events, and metadata from Google Cloud, Amazon Web Services, hosted uptime probes, application instrumentation, and a variety of common application components including Cassandra, Nginx, Apache Web Server, Elasticsearch, and many others. Cloud Monitoring ingests that data and generates insights via dashboards, charts, and alerts. Cloud Monitoring alerting helps you collaborate by integrating with Slack, PagerDuty, HipChat, Campfire, and more.
+
+This hands-on lab shows you how to monitor a Compute Engine virtual machine (VM) instance with Cloud Monitoring. You'll also install monitoring and logging agents for your VM which collects more information from your instance, which could include metrics and logs from 3rd party apps.
 
 ## Create a Compute Engine instance
 1. In the Cloud Console dashboard, go to Navigation menu > Compute Engine > VM instances, then click Create instance.
@@ -103,6 +106,7 @@ Uptime checks verify that a resource is always accessible. For practice, create 
 2. Set the following fields:
 
 | Title: | Lamp Uptime Check, then click Next. |
+| ---- | ---- |
 | Protocol: | HTTP |
 | Resource Type: | Instance |
 | Applies to: | Single, lamp-1-vm |
