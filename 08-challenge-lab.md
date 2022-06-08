@@ -27,7 +27,6 @@ Tips and tricks:
 https://cdn.qwiklabs.com/BgxgsuLyqMkhxmO3jDlkHE7yGLIR%2B3rrUabKimlgrbo%3D
 
 ### Task 1
-
 Suggested order of actions:
 
 1. Check the firewall rules. Remove the overly permissive rules.
@@ -47,15 +46,94 @@ Suggested order of actions:
 # Answer
 
 ## Task 1: Remove Overly Permissive Firewall Rules
+1. Navigation Menu > VPC Network > Firewall
+
+2. Delete open-access rules
 
 ## Task 2: Start Bastion Host/Instance
+1. Navigation Menu > Compute Engine > VM instances
+
+2. Start/Resume bastion
 
 ## Task 3: Create SSH Firewall Rule for Bastion Host
+Create firewall rule 
+1. Navigation Menu > VPC Network > Firewall > Create a firewall rule
+
+| Field | Detail |
+| ---- | ---- |
+| Name: | bastion-ssh |
+| Network: | acme-vpc |
+| Direction of traffic: | Ingress |
+| Action on match: | Allow |
+| Target tags: | allow-ssh-iap-ingress-ql-555 |
+| Source Filter: | IPv4 Ranges |
+| Source IPv4 ranges: | 35.235.240.0/20 |
+| Protocol and ports: | Specfied protocol and ports \| tcp: 22 |
+
+> Note: To allow IAP to connect to your VM instances, create a firewall rule that:
+> - applies to all VM instances that you want to be accessible by using IAP.
+> - **allows ingress traffic from the IP range 35.235.240.0/20. This range contains all IP addresses that IAP uses for TCP forwarding.**
+> - allows connections to all ports that you want to be accessible by using IAP TCP forwarding, for example, port 22 for SSH and port 3389 for RDP.
+>> Reference from: https://cloud.google.com/iap/docs/using-tcp-forwarding#create-firewall-rule
+
+
+Add Network Tag to bastion instance
+1. Navigation Menu > Compute Engine > VM instances
+2. Click on Bastion
+3. Click Edit
+4. Add `allow-ssh-iap-ingress-ql-555` to Network Tag
 
 ## Task 4: Create firewall rule of any to port 80 for Juice-Shop server
+Create firewall rule 
+1. Navigation Menu > VPC Network > Firewall > Create a firewall rule
+
+| Field | Detail |
+| ---- | ---- |
+| Name: | js-http |
+| Network: | acme-vpc |
+| Direction of traffic: | Ingress |
+| Action on match: | Allow |
+| Target tags: | allow-http-ingress-ql-334 |
+| Source Filter: | IPv4 Ranges |
+| Source IPv4 ranges: | 0.0.0.0/0 |
+| Protocol and ports: | Specfied protocol and ports \| tcp: 80 |
+
+Add Network Tag to juice-shop instance
+1. Navigation Menu > Compute Engine > VM instances
+2. Click on juice-shop
+3. Click Edit
+4. Add `allow-http-ingress-ql-334` to Network Tag
 
 ## Task 5: Create firewall rule for Bastion Host to Juice-Shop Server
+Create firewall rule 
+1. Navigation Menu > VPC Network > VPC networks
+2. Notice acme-mgmt-subnet network range: Internal IP ranges: 192.168.10.0/24
+3. Navigation Menu > VPC Network > Firewall > Create a firewall rule
+
+| Field | Detail |
+| ---- | ---- |
+| Name: | bastion-ssh-js |
+| Network: | acme-vpc |
+| Direction of traffic: | Ingress |
+| Action on match: | Allow |
+| Target tags: | allow-ssh-internal-ingress-ql-964 |
+| Source Filter: | IPv4 Ranges |
+| Source IPv4 ranges: | 192.168.10.0/24 |
+| Protocol and ports: | Specfied protocol and ports \| tcp: 22 |
+
+Add Network Tag to juice-shop instance
+1. Navigation Menu > Compute Engine > VM instances
+2. Click on juice-shop
+3. Click Edit
+4. Add `allow-ssh-internal-ingress-ql-964` to Network Tag
 
 ## Task 6: SSH from Bastion Host to Juice-Shop server
-
-__Answer__
+1. Navigation Menu > Compute Engine > VM instances
+2. Note internal ip of juice-shop.
+3. Click ssh on bastion.
+4. Key in the following command 
+```bash
+gcloud compute ssh juice-shop --internal-ip
+```
+> Note: I have no idea why ssh $INTERNAL_IP did not work.
+5. Press "Enter" twice and "Y" once.
