@@ -13,5 +13,3 @@
 # Answer
 
 ## Task 1. 
-
-__Answer__
