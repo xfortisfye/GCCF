@@ -8,6 +8,17 @@ Cloud Dataproc is a fast, easy-to-use, fully-managed cloud service for running A
 
 This lab shows you how to use the Google Cloud Console to create a Google Cloud Dataproc cluster, run a simple Apache Spark job in the cluster, then modify the number of workers in the cluster.
 
+### Confirm Cloud Dataproc API is enabled
+To create a Dataproc cluster in Google Cloud, the Cloud Dataproc API must be enabled. To confirm the API is enabled:
+
+Click Navigation menu > APIs & Services > Library:
+
+Type Cloud Dataproc in the Search for APIs & Services dialog. The console will display the Cloud Dataproc API in the search results.
+
+Click on Cloud Dataproc API to display the status of the API. If the API is not already enabled, click the Enable button.
+
+If the API's enabled, you're good to go:
+
 ## Create a cluster
 In the Cloud Platform Console, select Navigation menu > Dataproc > Clusters, then click Create cluster.
 
@@ -95,10 +106,10 @@ Click Submit.
 - [ ] SparkSql
 - [ ] PySpark
 - [ ] Pig
-- [ ] Spark
+- [x] Spark
 
 2. Dataproc helps users process, transform and understand vast quantities of data.
-- [ ] True
+- [x] True
 - [ ] False
 
 ----
@@ -108,6 +119,27 @@ Click Submit.
 Cloud Dataproc is a fast, easy-to-use, fully-managed cloud service for running Apache Spark and Apache Hadoop clusters in a simpler, more cost-efficient way. Operations that used to take hours or days take seconds or minutes instead. Create Cloud Dataproc clusters quickly and resize them at any time, so you don't have to worry about your data pipelines outgrowing your clusters.
 
 This lab shows you how to use gcloud on the Google Cloud to create a Google Cloud Dataproc cluster, run a simple Apache Spark job in the cluster, then modify the number of workers in the cluster.
+
+### Check project permissions
+Before you begin your work on Google Cloud, you need to ensure that your project has the correct permissions within Identity and Access Management (IAM).
+
+1. In the Google Cloud console, on the Navigation menu (nav-menu.png), click IAM & Admin > IAM.
+
+2. Confirm that the default compute Service Account {project-number}-compute@developer.gserviceaccount.com is present and has the editor role assigned. The account prefix is the project number, which you can find on Navigation menu > Home.
+
+If the account is not present in IAM or does not have the editor role, follow the steps below to assign the required role.
+- In the Google Cloud console, on the Navigation menu, click Home.
+- Copy the project number (e.g. 729328892908).
+- On the Navigation menu, click IAM & Admin > IAM.
+- At the top of the IAM page, click Add.
+- For New principals, type:
+
+```bash
+{project-number}-compute@developer.gserviceaccount.com
+```
+
+Replace {project-number} with your project number.
+- For Role, select Project (or Basic) > Editor. Click Save.
 
 ## Create a cluster
 In Cloud Shell, run the following command to set the Region:
@@ -181,7 +213,7 @@ Now you can create a Dataproc cluster and adjust the number of workers from the 
 
 ## Test your Understanding
 1. Clusters can be created and scaled quickly with a variety of virtual machine types, disk sizes, and number of nodes.
-- [ ] True
+- [x] True
 - [ ] False
 
 ----
@@ -192,10 +224,48 @@ In this lab, you will learn how to create a streaming pipeline using one of Goog
 
 You'll be given the option to use the Cloud Shell command line or the Cloud Console to create the BigQuery dataset and table. Pick one method to use, then continue with that method for the rest of the lab. If you want experience using both methods, run through this lab a second time.
 
+### Check project permissions
+Before you begin your work on Google Cloud, you need to ensure that your project has the correct permissions within Identity and Access Management (IAM).
+
+1. In the Google Cloud console, on the Navigation menu (nav-menu.png), click IAM & Admin > IAM.
+
+2. Confirm that the default compute Service Account {project-number}-compute@developer.gserviceaccount.com is present and has the editor role assigned. The account prefix is the project number, which you can find on Navigation menu > Home.
+
+
+
+If the account is not present in IAM or does not have the editor role, follow the steps below to assign the required role.
+- In the Google Cloud console, on the Navigation menu, click Home.
+- Copy the project number (e.g. 729328892908).
+- On the Navigation menu, click IAM & Admin > IAM.
+- At the top of the IAM page, click Add.
+- For New principals, type:
+```bash
+{project-number}-compute@developer.gserviceaccount.com
+```
+
+Replace {project-number} with your project number.
+- For Role, select Project (or Basic) > Editor. Click Save.
+
+## Ensure that the Dataflow API is successfully enabled
+To ensure access to the necessary API, restart the connection to the Dataflow API.
+
+1. In the Cloud Console, enter "Dataflow API" in the top search bar. Click on the result for Dataflow API.
+
+2. Click Manage.
+
+3. Click Disable API.
+
+If asked to confirm, click Disable.
+
+4. Click Enable.
+
+When the API has been enabled again, the page will show the option to disable.
+
 ## Create a Cloud BigQuery Dataset and Table Using Cloud Shell
 Let's first create a BigQuery dataset and table.
 
 > Note: This section uses the bq command-line tool. Skip down if you want to run through this lab using the console.
+
 Run the following command to create a dataset called taxirides:
 
 ```bash
@@ -323,11 +393,11 @@ Great work! You just pulled 1000 taxi rides from a Pub/Sub topic and pushed them
 
 ## Test your Understanding
 1. Google Cloud Dataflow supports batch processing.
-- [ ] True
+- [x] True
 - [ ] False
 
 2. Which Dataflow Template used in the lab to run the pipeline?
-- [ ] Pub/Sub to BigQuery
+- [x] Pub/Sub to BigQuery
 - [ ] Bulk Compress Cloud Storage Files
 - [ ] Cloud Storage Text to BigQuery
 
@@ -433,7 +503,7 @@ Click on a file to see the word counts it contains.
 
 ## Test your Understanding
 1. Dataflow temp_location must be a valid Cloud Storage URL.
-- [ ] True
+- [x] True
 - [ ] False
 
 ----
@@ -621,6 +691,3 @@ Add in this last New Step to round the Average Contribution amount:
 set col: Average_Contribution_Sum value: round(Average_Contribution_Sum)
 ```
 Then click Add.
-
-Your results look something like this:
-
