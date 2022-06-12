@@ -48,7 +48,7 @@ You have used Dataprep to import data files and transformed them to gain views o
 `gs://cloud-training/gsp323/runs.csv` structure:
 
 | runid | userid | labid | lab_title | start | end | time | score | state |
-| ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- |
+| ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- |
 | 5556 | 545 | 122 | Lab 122 | 2020-04-09 | 16:18:19 | 2020-04-09 17:10:11 | 3112 | 61.25 | SUCCESS |
 | 5557 | 116 | 165 | Lab 165 | 2020-04-09 | 16:44:45 | 2020-04-09 18:13:58 | 5353 | 60.5 | SUCCESS |
 | 5558 | 969 | 31 | Lab 31 | 2020-04-09 | 17:59:01 | 2020-04-09 18:02:09 | 188 | 0 | FAILURE |
@@ -117,8 +117,8 @@ Complete one of the following tasks below.
 ## Task 3: Run a simple Dataprep job
 1. Navigation Menu > Dataprep > Agree non-stop.
 2. Import Data > Cloud Storage > Pencil > Edit path to `gs://cloud-training/gsp323/runs.csv` > Add to New Flow > Continue
-3. Add > Add Recipe > Edit Recipe > Continue
-4. Click column10 > Delete rows from suggestion > Add
+3. Add > Recipe > Edit Recipe > Continue
+4. Click column10 > click Failure > Delete rows from suggestion > Add
 5. Click downward arrow beside column9 > Filter rows > On column value > Contains
 6. Pattern to Match: `/(^0$|^0\.0$)/` > Action: Delete matching rows > 
 7. Click downward arrow beside each respective column and rename each of them.
@@ -126,7 +126,7 @@ Complete one of the following tasks below.
 
 ## Task 4: AI
 1. Navigation Menu > APIs & Services > Create Credentials > API key > Copy API Key
-2. At command line:
+2. Generate request.json to be sent to Google Cloud Speech API:
 
 ```bash
 export API_KEY=<YOUR_API_KEY>
@@ -148,12 +148,13 @@ nano request.json
 
 3. Cltr X > Y > Enter
 
+4. Utilise Google Cloud Speech API 
 ```bash
 curl -s -X POST -H "Content-Type: application/json" --data-binary @request.json \
-"https://speech.googleapis.com/v1/speech:recognize?key=${API_KEY}" > task4-gcs-206.result
+"https://speech.googleapis.com/v1/speech:recognize?key=${API_KEY}" > task4-gcs-644.result
 ```
 
-4.
+5. Transfer result to bucket
 ```bash
 gsutil cp task4-gcs.result gs://qwiklabs-gcp-04-69cf69e46287-marking/task4-gcs-206.result
 ```
