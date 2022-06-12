@@ -23,8 +23,3 @@
 - [x] Network topology is not dependent on the IP address layout.
 - [ ] Network topology is dependent on IP address layout.
 > Correct, network topology isn’t dependent on the IP address layout.
-
-
-
-
-

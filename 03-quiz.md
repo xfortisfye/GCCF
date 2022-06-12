@@ -23,6 +23,3 @@
 - [ ] App Engine
 - [ ] Google Kubernetes Engine
 > Compute Engine is an infrastructure as a service option. The hardware is managed for you, but you still have to manage your operating system and application.
-
-
-

@@ -21,6 +21,3 @@
 - [x] True
 - [ ] False
 > The answer is True. Associating all resources with a project helps with billing and isolation.
-
-
-

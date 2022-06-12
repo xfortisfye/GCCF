@@ -15,7 +15,7 @@ This lab gives you an introductory, end-to-end experience of training and predic
 ### What you will build
 The sample builds a classification model for predicting income category based on United States Census Income Dataset. The two income categories (also known as labels) are:
 
-- >50K — Greater than 50,000 dollars
+- \>50K — Greater than 50,000 dollars
 - <=50K — Less than or equal to 50,000 dollars
 The sample defines the model using the Keras Sequential API. The sample defines the data transformations particular to the census dataset, then assigns these (potentially) transformed features to either the DNN or the linear portion of the model.
 
@@ -77,13 +77,12 @@ Step 3.3
 
 ## Test your Understanding
 1. A model version is an instance of a machine learning solution stored in the AI Platform model service.
-- [ ] True
+- [x] True
 - [ ] False
 
 2. AI Platform offers training jobs and batch prediction jobs.
-- [ ] True
+- [x] True
 - [ ] False
-
 
 ----
 # Lab 10-02: Cloud Natural Lanaguge API: Qwik Start
@@ -220,7 +219,7 @@ You should see a response similar to the following in the result.json file:
 
 Read through your results. For each "entity" in the response, you'll see:
 
-- The entity name and type, a person, location, event, etc.
+- The entity `name` and `type`, a person, location, event, etc.
 - `metadata`, an associated Wikipedia URL if there is one.
 - `salience`, and the indices of where this entity appeared in the text. Salience is a number in the [0,1] range that refers to the centrality of the entity to the text as a whole.
 - `mentions`, which is the same entity mentioned in different ways.
@@ -347,7 +346,7 @@ curl -s -X POST -H "Content-Type: application/json" --data-binary @request.json 
 ## Overview 
 Google Cloud Video Intelligence makes videos searchable and discoverable by extracting metadata with an easy to use REST API. You can now search every moment of every video file in your catalog. It quickly annotates videos stored in Cloud Storage, and helps you identify key entities (nouns) within your video; and when they occur within the video. Separate signal from noise by retrieving relevant information within the entire video, shot-by-shot, -or per frame.
 
-Enable the Video Intelligence API
+## Enable the Video Intelligence API
 For this lab, the Cloud Video Intelligence API is enabled for you.
 
 ## Set up authorization
@@ -516,7 +515,9 @@ All the required files that you need for this lab can be found in this [reposito
 
 From the left-hand navigation menu, select AI Platform > Notebooks. Then from the top-hand menu, select + New Notebook > TensorFlow 2.x > Without GPUs:
 
-Then click Create. It will take a couple of minutes to provision your AI Platform Notebook. Refresh the page occasionally. Once the notebook has been built, click the OPEN JUPYTERLAB button:
+Then click Create. It will take a couple of minutes to provision your AI Platform Notebook. Refresh the page occasionally. Once the notebook has been built, click the OPEN JUPYTERLAB button
+
+This will open a new tab with your Jupyterlab loaded.
 
 ## Clone the sample code
 Click on the Terminal icon. This will give you a temporary shell to enter commands. Enter in the following command to clone the sample repo from the training data analyst repository:

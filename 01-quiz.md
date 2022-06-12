@@ -23,6 +23,3 @@
 - [x] Scripting as a Service
 - [ ] Rapid elasicity
 > The answer is Scripting as a Service, which does not exist.
-
-
-

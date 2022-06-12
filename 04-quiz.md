@@ -23,9 +23,3 @@
 - [ ] Datastore
 - [ ] Cloud Bigtable
 > Cloud Storage Coldline storage is designed for long term storage of data that is typically not accessed more than once a year.
-
-
-
-
-
-

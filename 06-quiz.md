@@ -21,6 +21,3 @@
 - [ ] Customer-managed encryption keys (CMEK)
 - [ ] Customer-supplied encryption Keys (CSEK)
 > Scripted encryption keys is not an option with Google Cloud.
-
-
-

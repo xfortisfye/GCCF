@@ -23,7 +23,3 @@
 - [ ] Cloud Gateway
 - [x] REST
 > Apigee Edge is designed to be used with both cloud and legacy systems.
-
-
-
-

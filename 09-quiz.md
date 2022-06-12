@@ -23,6 +23,3 @@
 - [ ] BigQuery stores your data via persistent disks
 - [ ] BigQuery is a managed front end that uses Cloud Storage
 > BigQuery is a fully managed service. You aren’t required to build servers or manage storage.
-
-
-
